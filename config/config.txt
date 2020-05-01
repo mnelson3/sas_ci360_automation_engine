@@ -1,0 +1,106 @@
+#
+agent_name=Discover
+#
+algorithm=HS256
+#
+analytic_services_controller_path=/analytic
+#
+analytic_transfer_controller_path=/analytic/transfers
+#
+bulk_load_external_events_path=/bulkEventsFileLocation
+#
+customer_jobs_path=/customerJobs
+#
+delimiter=|
+#
+discover_service_path=/discoverService/dataDownload/eventData
+# 2 - 24
+duration=2
+#
+email_from=sas.ci360.automation.engine@gmail.com
+#
+email_to=Mark.Nelson@sas.com
+#
+email_server=smtp.gmail.com
+#
+email_server_port=587
+#
+email_server_login=sas.ci360.automation.engine@gmail.com
+#
+email_server_password=H*9p%4F#2bN
+# ASCII
+encoding=UTF-8
+# %Y-%m-%d : 2020-01-01, 2020-12-31 or None
+end_date=None
+# %Y-%m-%dT%H:%M:%S.%fZ : 2020-01-01T00:00:00.000Z, 2020-12-31T23:59:59.999Z or None
+end_date_time=None
+# H:%M:%S.%fZ : 00:00:00.000Z, 23:59:59.999Z, 11:59:59.999Z or None
+end_time=None
+#
+event_jobs_path=/eventJobs
+#
+export_request_jobs_path=/exportRequestJobs
+#
+export_prod_file=identity_bridge_data.csv
+#
+export_prod_path=D:/Clients/First_Financial/SAS_CI360_Automation_Engine/
+#
+export_test_file=identity_bridge_data_test.csv
+#
+export_test_path=D:/Clients/First_Financial_Test/SAS_CI360_Automation_Engine/
+# DBTReport, detail, identity
+export_tables_path=/dbtReport,/detail/partitionedData,/detail/nonPartitionedData
+#
+external_gateway=extapigwservice-training.ci360.sas.com
+# external_gateway=extapigwservice-prod.ci360.sas.com
+#
+file_transfer_location_path=/fileTransferLocation
+#
+identity_records_path=/identityRecords
+#
+identity_value=None
+#
+import_path=/marketingData
+#
+import_request_jobs_path=/importRequestJobs
+#
+identity_bridge_table_id=123
+#
+interval=1
+#
+flag_append=True
+#
+flag_clean_files=True
+#
+flag_csv=True
+#
+flag_csv_header=True
+#
+flag_test_export=True
+#
+flag_test_report=True
+#
+marketing_data_path=/marketingData
+#
+marketing_gateway_path=/marketingGateway
+#
+# dbtReport,detail,identity
+report_name=identity
+#
+root_path=/
+# Schema version can be one (1), three (3), or four (4), four represents the Unified Data Model
+schema_version=3
+#
+secret_key=ODcxODE0bGkzaTNoMzM3MjdtZzJpMWpoY2M5ZTloaDY4
+# %Y-%m-%d : 2020-01-01, 2020-12-31 or None
+start_date=None
+# %Y-%m-%dT%H:%M:%S.%fZ : 2020-01-01T00:00:00.000Z, 2020-12-31T23:59:59.999Z or None
+start_date_time=None
+# H:%M:%S.%fZ : 00:00:00.000Z, 23:59:59.999Z, 11:59:59.999Z or None
+start_time=None
+#
+tables_path=/tables
+#
+table_id=
+#
+tenant_id=dd0c73c9fe00013c617772f8

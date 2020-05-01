@@ -1,0 +1,82 @@
+pip install -r requirements-to-freeze.txt --upgrade && pip freeze > requirements.txt
+C:\Users\manels\AppData\Local\Programs\Python\Python37\python.exe C:\algorithms\automation\src\service\SASCI360WindowsService.py install
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Scripts\python.exe  C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\src\service\SASCI360WindowsService.py install
+
+
+
+sudo cp -r
+/usr/local/lib/python3.7/dist-packages
+sudo cp -r /usr/lib/python3/dist-packages /home/manels/PycharmProjects/SAS_CI360_Automation_Engine/venv/lib/python3.7/site-packages
+sudo cp -r /usr/lib/python3.7 /home/manels/PycharmProjects/SAS_CI360_Automation_Engine/venv/lib/python3.7/site-packages
+
+/usr/lib/python3/dist-packages
+/usr/local/lib/python3.7/dist-packages/pkg_resources
+/home/manels/PycharmProjects/SAS_CI360_Automation_Engine/venv/lib/python3.7/site-packages
+
+
+
+
+
+
+sudo cp -r /home/manels/PycharmProjects/SAS_CI360_Automation_Engine/src/sas_ci360_automation_engine.service /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable sas_ci360_automation_engine.service
+sudo systemctl disable sas_ci360_automation_engine.service
+sudo systemctl start sas_ci360_automation_engine.service
+sudo systemctl stop sas_ci360_automation_engine.service
+
+
+cd C:\Users\manels\AppData\Local\Programs\Python\Python37\
+python C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\src\SASCI360WindowsService.py install
+python C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\dist\SASCI360WindowsService.exe install
+python C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\dist\SASCI360WindowsService\SASCI360WindowsService.exe install
+
+
+imp.load_dynamic('_socket', r'C:\Users\manels\AppData\Local\Programs\Python\Python37\DLLs\_socket.pyd')
+
+
+imp.load_dynamic('win32service', r'C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\win32service.pyd')
+
+
+import importlib.util as imp
+imp.find_spec('C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\lib\win32service.py', r'C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\win32service.pyd')
+imp.find_spec('win32serviceutil', r'C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\win32serviceutil.pyd')
+
+
+C:\Windows\System32\pythoncom37.dll
+C:\Windows\System32\pywintypes37.dll
+C:\Users\manels\AppData\Local\Programs\Python\Python37\
+C:\Users\manels\AppData\Local\Programs\Python\Python37\python.exe
+C:\Users\manels\AppData\Local\Programs\Python\Python37\DLLs\
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\pywin32_system32\
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\pywin32_system32\pythoncom37.dll
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\pywin32_system32\pywintypes37.dll
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\win32\
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\win32\win32event.pyd
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\win32\win32service.pyd
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\win32\PythonService.exe
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Lib\site-packages\win32\lib\win32serviceutil.pyd
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Scripts\
+C:\Users\manels\AppData\Local\Programs\Python\Python37\Tools\
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\src\
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\src\service\SASCI360WindowsService.py
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\src\service\SASCI360WindowsService.SASCI360WindowsService
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\pywin32_system32\pythoncom37.dll
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\pywin32_system32\pywintypes37.dll
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\pythonservice.exe
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\win32event.pyd
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\win32service.pyd
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Lib\site-packages\win32\lib\win32serviceutil.pyd
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Scripts\
+C:\Users\manels\PycharmProjects\SAS_CI360_Automation_Engine\venv\Scripts\python.exe
+
+
+nssm install <servicename> <application> [<options>]
+nssm install SAS_CI360_Windows_Service C:\algorithms\automation\src\service\SASCI360WindowsService.py
+nssm install [SAS_CI360_Windows_Service]
+nssm start [SAS_CI360_Windows_Service]
