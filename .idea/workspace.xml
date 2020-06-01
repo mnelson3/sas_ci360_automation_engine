@@ -20,7 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="675e50be-5700-4484-9c75-4eb3678451ee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="941b0b0a-a272-468c-a711-f2d30c0c06c6" name="Initial commit" comment="Initial commit" />
     <list id="a9470850-b5eb-4948-a219-9dea8e60f883" name="Revert &quot;Initial commit&quot;" comment="Revert &quot;Initial commit&quot;&#10;&#10;This reverts commit 4481b9ed" />
@@ -89,19 +90,19 @@
     <option name="myUseBundledCoveragePy" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\reports" />
-      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\tables_post" />
-      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\tables_get" />
-      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\import_request_jobs_post" />
-      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\identity_records_get" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine" />
       <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\file_transfer_location_post" />
       <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\export\dev" />
       <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\reports\dev" />
       <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\import_request_jobs_get\dev" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\reports" />
+      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\tables_post" />
+      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\tables_get" />
+      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\import_request_jobs_post" />
+      <recent name="D:\Clients\First_Financial\SAS_CI360_Automation_Engine\data\response\identity_records_get" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.test_communication_Communication">
