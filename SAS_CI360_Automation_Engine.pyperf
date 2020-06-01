@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ProjectTarget>
+    <TargetProject>91d5b743-d9a5-4cfc-aeec-f05d5dd59b26</TargetProject>
+    <FriendlyName>SAS_CI360_Automation_Engine</FriendlyName>
+  </ProjectTarget>
+  <UseVTune>false</UseVTune>
+</ProfilingTarget>
