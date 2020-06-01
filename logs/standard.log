@@ -1,0 +1,20 @@
+2020-05-29 09:40:09,758 root         ERROR    Exception occurred: [Errno 2] No such file or directory: 'D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine\\reports\\development\\import_request_jobs_get_20200519120935.CSV'
+Traceback (most recent call last):
+  File "D:\Clients\First_Financial\SAS_CI360_Automation_Engine\src\communication\Communication.py", line 121, in send_email
+    with open(filename, "rb") as attachment:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine\\reports\\development\\import_request_jobs_get_20200519120935.CSV'
+2020-05-29 09:40:09,788 root         ERROR    Exception occurred: [Errno 2] No such file or directory: 'D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine\\reports\\development\\import_request_jobs_get_20200519120935.CSV'
+Traceback (most recent call last):
+  File "D:\Clients\First_Financial\SAS_CI360_Automation_Engine\src\communication\Communication.py", line 121, in send_email
+    with open(filename, "rb") as attachment:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine\\reports\\development\\import_request_jobs_get_20200519120935.CSV'
+2020-05-29 09:40:09,801 root         ERROR    Exception occurred: [Errno 2] No such file or directory: 'D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine\\data\\export\\development\\SAS1FBCHANGE_20200519120935.CSV'
+Traceback (most recent call last):
+  File "D:\Clients\First_Financial\SAS_CI360_Automation_Engine\src\communication\Communication.py", line 121, in send_email
+    with open(filename, "rb") as attachment:
+FileNotFoundError: [Errno 2] No such file or directory: 'D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine\\data\\export\\development\\SAS1FBCHANGE_20200519120935.CSV'
+2020-05-29 09:40:09,812 root         ERROR    Exception occurred: [Errno 2] No such file or directory: "D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine['\\data\\export\\development\\', '\\data\\export\\test\\', '\\data\\export\\production\\']SAS1FBCHANGE_20200519120935.CSV"
+Traceback (most recent call last):
+  File "D:\Clients\First_Financial\SAS_CI360_Automation_Engine\src\communication\Communication.py", line 121, in send_email
+    with open(filename, "rb") as attachment:
+FileNotFoundError: [Errno 2] No such file or directory: "D:\\Clients\\First_Financial\\SAS_CI360_Automation_Engine['\\data\\export\\development\\', '\\data\\export\\test\\', '\\data\\export\\production\\']SAS1FBCHANGE_20200519120935.CSV"
