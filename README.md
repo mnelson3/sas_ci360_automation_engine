@@ -1,4 +1,3 @@
-
 The SAS Customer Intelligence 360 (CI360) Automation Engine is designed to download Discover data from the CI360 datahub which
 is hosted in the cloud. This data is then processed for records where that meet a predefined set of business rules. A new
 comma-separated-value (.csv) data-file is created and uploaded back to the CI360 datahub.
@@ -22,3 +21,6 @@ sudo systemctl disable sas_ci360_automation_engine.service      Disables the ser
 sudo systemctl start sas_ci360_automation_engine.service        Starts the service
 sudo systemctl status sas_ci360_automation_engine.service       Status of the service
 sudo systemctl stop sas_ci360_automation_engine.service         Stops the service
+=======
+# SAS_CI360_Automation_Engine
+
