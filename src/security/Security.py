@@ -2,55 +2,53 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 import base64
-import json
 from pathlib import Path
 
-from jwt import JWT
+import jwt
 
-from log import Log
 from security import root_path
+from log import Log
 from standard import Standard
 
-_log_file_ = Path(root_path + Standard.gDirLog + 'security.log')
-_log_ = Log.Log.get_instance()
-_log_.log_file(_log_file_)
-logger = _log_.logging()
+__log_file = Path('{0}{1}{2}'.format(root_path, '/logs/', 'security.log'))
+__log = Log.Log.get_instance()
+__log.log_file(__log_file)
+logger = __log.logging()
 
 
 class Security:
-	__instance = None
+	__mode = None
 
-	@staticmethod
-	def get_instance():
-		if Security.__instance is None:
-			Security()
-		return Security.__instance
-
-	def __init__(self):
-		if Security.__instance is not None:
-			raise Exception('This class is a singleton!')
+	def __init__(self, **kwargs):
+		if 'mode' in kwargs:
+			Security.__mode = kwargs['mode']
 		else:
-			Security.__instance = self
+			Security.__mode = None
+		self.__mode = Security.__mode
 
-		standard = Standard.Standard.get_instance()
+		if self.__mode is not None:
+			self._standard = Standard.Standard(mode=self.__mode)
+		else:
+			self._standard = Standard.Standard()
 
-		self._algorithm = standard.algorithm()
-		self._encoding = standard.encoding()
-		self._tenant_id = standard.tenant_id()
+		self._algorithm = self._standard.algorithm
+		self._encoding = self._standard.encoding
 
 	def generate_jwt(self, result=None, **kwargs):
 		try:
 			algorithm = self._algorithm
 			encoding = self._encoding
-			tenant_id = self._tenant_id
+
+			tenant_id = kwargs['tenant_id']
 			secret_key = kwargs['secret_key']
-			payload = '{"clientID":"' + tenant_id + '"}'
-			payload_json = json.loads(payload)
+
+			payload = {'clientID': '{0}'.format(tenant_id)}
 			secret_key_bytes = bytes(str(secret_key), encoding=encoding)
 			secret_key_encoded = base64.b64encode(secret_key_bytes)
-			result = JWT.encode(payload_json, secret_key_encoded, algorithm)
+			token = jwt.encode(payload=payload, key=secret_key_encoded, algorithm=algorithm)
+			result = token.decode()
 		except Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 		finally:
 			return result

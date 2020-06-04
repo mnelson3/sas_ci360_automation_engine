@@ -1,542 +1,1131 @@
 #! /venv/bin/python3
 # -*- mode: python ; coding: utf-8 -*-
 
-from datetime import datetime
+import configparser
+from configparser import ConfigParser
 from pathlib import Path
 
 from log import Log
 from standard import root_path
 
-gSql = ''
-gSqlInsert = ''
-gQuerystring = {}
-gSohDelimiter = '\001'
-gDirRoot = '/SAS_CI360_Automation_Engine/'
-gDirConfig = '/config/'
-gDirLog = '/logs/'
-gDirReport = '/reports/'
-gDirData = '/data/'
-gDsDscRoot = '/data/discover/'
-gDsDscClean = '/data/discover/clean/'
-gDsDscConfig = '/data/discover/dsccnfg/'
-gDsDscZip = '/data/discover/dscdonl/'
-gDsDscExtr = '/data/discover/dscextr/'
-gDsDscCsv = '/data/discover/dscwh/'
-gDsDscExport = '/data/discover/export/'
-gDsDscFix = '/data/discover/fix/'
-gDsDscSql = '/data/discover/sql/'
-gDsEngRoot = '/data/engage/'
-gDsEngDownload = '/data/engage/download/'
-gDsEngExport = '/data/engage/export/'
-gDsEngJson = '/data/engage/json/'
-gDsEngProcessA = '/data/engage/process_a/'
-gDsEngProcessB = '/data/engage/process_b/'
-gDsEngProcessC = '/data/engage/process_c/'
-gDsEngProcessD = '/data/engage/process_d/'
-gDsEngProcessE = '/data/engage/process_e/'
-gDsEngProcessF = '/data/engage/process_f/'
-
-_log_file_ = Path(root_path + gDirLog + 'standard.log')
-_log_ = Log.Log.get_instance()
-_log_.log_file(_log_file_)
-logger = _log_.logging()
+__log_file = Path('{0}{1}{2}'.format(root_path, '/logs/', 'standard.log'))
+__log = Log.Log.get_instance()
+__log.log_file(__log_file)
+logger = __log.logging()
 
 
 class Standard:
-	__instance = None
+	__mode = None
 
-	@staticmethod
-	def get_instance():
-		if Standard.__instance is None:
-			Standard()
-		return Standard.__instance
+	gSql = ''
+	gSqlInsert = ''
+	gQuerystring = {}
+	gSohDelimiter = '\001'
+	gDirRoot = '/SAS_CI360_Automation_Engine/'
+	gDirConfig = '/config/'
+	gDirLog = '/logs/'
+	gDirData = '/data/'
+	gDirDataResponse = '/data/response/'
+	gDirDataResponseAnalyticGet = '/data/response/analytic_get/'
+	gDirDataResponseAnalyticPost = '/data/response/analytic_post/'
+	gDirDataResponseAnalyticTransfersPost = '/data/response/analytic_transfers_post/'
+	gDirDataResponseBulkLoadExternalEventsPost = '/data/response/bulk_load_external_events_post/'
+	gDirDataResponseCustomerJobsGet = '/data/response/customer_jobs_get/'
+	gDirDataResponseCustomerJobsPost = '/data/response/customer_jobs_post/'
+	gDirDataResponseEventJobsGet = '/data/response/event_jobs_get/'
+	gDirDataResponseEventJobsPost = '/data/response/event_jobs_post/'
+	gDirDataResponseExportRequestJobsGet = '/data/response/export_request_jobs_get/'
+	gDirDataResponseExportRequestJobsPost = '/data/response/export_request_jobs_post/'
+	gDirDataResponseFileTransferLocationPost = '/data/response/file_transfer_location_post/'
+	gDirDataResponseIdentityRecordsGet = '/data/response/identity_records_get/'
+	gDirDataResponseImportRequestJobsGet = '/data/response/import_request_jobs_get/'
+	gDirDataResponseImportRequestJobsPost = '/data/response/import_request_jobs_post/'
+	gDirDataResponseTablesGet = '/data/response/tables_get/'
+	gDirDataResponseTablesPost = '/data/response/tables_post/'
+	gDsDscRoot = '/data/discover/'
+	gDsDscClean = '/data/discover/clean/'
+	gDsDscConfig = '/data/discover/dsccnfg/'
+	gDsDscZip = '/data/discover/dscdonl/'
+	gDsDscExtr = '/data/discover/dscextr/'
+	gDsDscCsv = '/data/discover/dscwh/'
+	gDsDscExport = '/data/discover/export/'
+	gDsDscFix = '/data/discover/fix/'
+	gDsDscSql = '/data/discover/sql/'
+	gDsEngRoot = '/data/engage/'
+	gDsEngDownload = '/data/engage/download/'
+	gDsEngExport = '/data/engage/export/'
+	gDsEngJson = '/data/engage/json/'
+	gDsEngProcessA = '/data/engage/process_a/'
+	gDsEngProcessB = '/data/engage/process_b/'
+	gDsEngProcessC = '/data/engage/process_c/'
+	gDsEngProcessD = '/data/engage/process_d/'
+	gDsEngProcessE = '/data/engage/process_e/'
+	gDsEngProcessF = '/data/engage/process_f/'
 
-	def __init__(self):
-		if Standard.__instance is not None:
-			raise Exception('This class is a singleton!')
+	def __init__(self, **kwargs):
+		if 'mode' in kwargs:
+			Standard.__mode = kwargs['mode']
 		else:
-			Standard.__instance = self
-		keys = self.load()
-		self._agent_name = str(keys['agent_name']).split(',')
-		self._algorithm = keys['algorithm']
-		self._bulk_load_external_events_path = keys['bulk_load_external_events_path']
-		self._delimiter = keys['delimiter']
-		self._discover_service_path = keys['discover_service_path']
-		self._duration = keys['duration']
-		self._encoding = keys['encoding']
-		self._email_from = keys['email_from']
-		self._email_to = keys['email_to']
-		self._email_server = keys['email_server']
-		self._email_server_login = keys['email_server_login']
-		self._email_server_password = keys['email_server_password']
-		self._email_server_port = keys['email_server_port']
-		self._end_date = keys['end_date']
-		self._end_date_time = keys['end_date_time']
-		self._end_time = keys['end_time']
-		self._external_gateway = keys['external_gateway']
-		self._export_tables_path = keys['export_tables_path']
-		self._export_prod_file = keys['export_prod_file']
-		self._export_prod_path = keys['export_prod_path']
-		self._export_test_file = keys['export_test_file']
-		self._export_test_path = keys['export_test_path']
-		self._file_transfer_location_path = keys['file_transfer_location_path']
-		self._flag_append = keys['flag_append']
-		self._flag_clean_files = keys['flag_clean_files']
-		self._flag_csv = keys['flag_csv']
-		self._flag_csv_header = keys['flag_csv_header']
-		self._flag_test_export = keys['flag_test_export']
-		self._flag_test_report = keys['flag_test_report']
-		self._identity_bridge_table_id = keys['identity_bridge_table_id']
-		self._identity_value = keys['identity_value']
-		self._import_base_url = keys['import_base_url']
-		self._import_path = keys['import_path']
-		self._import_request_jobs_path = keys['import_request_jobs_path']
-		self._interval = keys['interval']
-		self._marketing_data_path = keys['marketing_data_path']
-		self._marketing_gateway_path = keys['marketing_gateway_path']
-		self._report_name = str(keys['report_name']).split(',')
-		self._schema_version = keys['schema_version']
-		self._secret_key = keys['secret_key']
-		self._start_date = keys['start_date']
-		self._start_date_time = keys['start_date_time']
-		self._start_time = keys['start_time']
-		self._table_id = keys['table_id']
-		self._tenant_id = keys['tenant_id']
+			Standard.__mode = None
+		self.__mode = Standard.__mode
 
-	def agent_name(self, value=None):
-		if value:
-			self._agent_name = value
+		config_parser = ConfigParser(interpolation=configparser.ExtendedInterpolation())
+		config_file = Path('{0}{1}{2}'.format(root_path, '/config/', 'config.ini'))
+		config_parser.read(config_file)
+
+		# DATETIME
+		self._duration = config_parser.get('DATETIME', 'duration')
+		self._end_date = config_parser.get('DATETIME', 'end_date')
+		self._end_date_time = config_parser.get('DATETIME', 'end_date_time')
+		self._end_time = config_parser.get('DATETIME', 'end_time')
+		self._interval_hours = config_parser.get('DATETIME', 'interval_hours')
+		self._interval_minutes = config_parser.get('DATETIME', 'interval_minutes')
+		self._schedule_job_arr = config_parser.get('DATETIME', 'schedule_job_arr')
+		self._schedule_job_chain = config_parser.get('DATETIME', 'schedule_job_chain')
+		self._schedule_job_change = config_parser.get('DATETIME', 'schedule_job_change')
+		self._sleep_seconds = config_parser.get('DATETIME', 'sleep_seconds')
+		self._start_date = config_parser.get('DATETIME', 'start_date')
+		self._start_date_time = config_parser.get('DATETIME', 'start_date_time')
+		self._start_time = config_parser.get('DATETIME', 'start_time')
+
+		# EMAIL
+		self._email_msg_status_from_arr = config_parser.get('EMAIL', 'email_msg_status_from_arr')
+		self._email_msg_status_from = config_parser.get('EMAIL', 'email_msg_status_from')
+		self._email_msg_status_to_arr = config_parser.get('EMAIL', 'email_msg_status_to_arr')
+		self._email_msg_status_to = config_parser.get('EMAIL', 'email_msg_status_to')
+		self._email_msg_support_from_arr = config_parser.get('EMAIL', 'email_msg_support_from_arr')
+		self._email_msg_support_from = config_parser.get('EMAIL', 'email_msg_support_from')
+		self._email_msg_support_to_arr = config_parser.get('EMAIL', 'email_msg_support_to_arr')
+		self._email_msg_support_to = config_parser.get('EMAIL', 'email_msg_support_to')
+		self._email_msg_support_cc_arr = config_parser.get('EMAIL', 'email_msg_support_cc_arr')
+		self._email_msg_support_cc = config_parser.get('EMAIL', 'email_msg_support_cc')
+		self._email_server_arr = config_parser.get('EMAIL', 'email_server_arr')
+		self._email_server = config_parser.get('EMAIL', 'email_server')
+		self._email_server_login_arr = config_parser.get('EMAIL', 'email_server_login_arr')
+		self._email_server_login = config_parser.get('EMAIL', 'email_server_login')
+		self._email_server_password_arr = config_parser.get('EMAIL', 'email_server_password_arr')
+		self._email_server_password = config_parser.get('EMAIL', 'email_server_password')
+		self._email_server_port_arr = config_parser.get('EMAIL', 'email_server_port_arr')
+		self._email_server_port = config_parser.get('EMAIL', 'email_server_port')
+
+		# FILES
+		self._file_export_arr = config_parser.get('FILES', 'file_export_arr')
+		self._file_export = config_parser.get('FILES', 'file_export')
+		self._file_change_export_arr = config_parser.get('FILES', 'file_change_export_arr')
+		self._file_change_export = config_parser.get('FILES', 'file_change_export')
+
+		# FLAGS
+		self._flag_append = config_parser.get('FLAGS', 'flag_append')
+		self._flag_clean_files = config_parser.get('FLAGS', 'flag_clean_files')
+		self._flag_csv = config_parser.get('FLAGS', 'flag_csv')
+		self._flag_csv_header = config_parser.get('FLAGS', 'flag_csv_header')
+		self._flag_test_export = config_parser.get('FLAGS', 'flag_test_export')
+		self._flag_test_report = config_parser.get('FLAGS', 'flag_test_report')
+
+		# IDENTITIES
+		self._identity_bridge_table_id_arr = config_parser.get('IDENTITIES', 'identity_bridge_table_id_arr')
+		self._identity_bridge_table_id = config_parser.get('IDENTITIES', 'identity_bridge_table_id')
+		self._identity_value = config_parser.get('IDENTITIES', 'identity_value')
+		self._secret_key_arr = config_parser.get('IDENTITIES', 'secret_key_arr')
+		self._secret_key = config_parser.get('IDENTITIES', 'secret_key')
+		self._tenant_id_arr = config_parser.get('IDENTITIES', 'tenant_id_arr')
+		self._tenant_id = config_parser.get('IDENTITIES', 'tenant_id')
+
+		# PATHS
+		self._path_analytic_services_controller = config_parser.get('PATHS', 'path_analytic_services_controller')
+		self._path_analytic_transfer_controller = config_parser.get('PATHS', 'path_analytic_transfer_controller')
+		self._path_bulk_load_external_events = config_parser.get('PATHS', 'path_bulk_load_external_events')
+		self._path_customer_jobs = config_parser.get('PATHS', 'path_customer_jobs')
+		self._path_discover_service = config_parser.get('PATHS', 'path_discover_service')
+		self._path_event_jobs = config_parser.get('PATHS', 'path_event_jobs')
+		self._path_export_arr = config_parser.get('PATHS', 'path_export_arr')
+		self._path_export = config_parser.get('PATHS', 'path_export')
+		self._path_export_post_arr = config_parser.get('PATHS', 'path_export_post_arr')
+		self._path_export_post = config_parser.get('PATHS', 'path_export_post')
+		self._path_export_request_jobs = config_parser.get('PATHS', 'path_export_request_jobs')
+		self._path_export_tables = config_parser.get('PATHS', 'path_export_tables')
+		self._path_external_gateway_arr = config_parser.get('PATHS', 'path_external_gateway_arr')
+		self._path_external_gateway = config_parser.get('PATHS', 'path_external_gateway')
+		self._path_file_transfer_location = config_parser.get('PATHS', 'path_file_transfer_location')
+		self._path_identity_records = config_parser.get('PATHS', 'path_identity_records')
+		self._path_import = config_parser.get('PATHS', 'path_import')
+		self._path_import_request_jobs = config_parser.get('PATHS', 'path_import_request_jobs')
+		self._path_marketing_data = config_parser.get('PATHS', 'path_marketing_data')
+		self._path_marketing_gateway = config_parser.get('PATHS', 'path_marketing_gateway')
+		self._path_reports_arr = config_parser.get('PATHS', 'path_reports_arr')
+		self._path_reports = config_parser.get('PATHS', 'path_reports')
+		# self._path_root = config_parser.get('PATHS', 'path_root')
+		self._path_tables = config_parser.get('PATHS', 'path_tables')
+
+		# SETTINGS
+		self._agent_name_arr = config_parser.get('SETTINGS', 'agent_name_arr')
+		self._agent_name = config_parser.get('SETTINGS', 'agent_name')
+		self._algorithm = config_parser.get('SETTINGS', 'algorithm')
+		self._delimiter = config_parser.get('SETTINGS', 'delimiter')
+		self._encoding = config_parser.get('SETTINGS', 'encoding')
+		self._dataset_name_arr = config_parser.get('SETTINGS', 'dataset_name_arr')
+		self._dataset_name = config_parser.get('SETTINGS', 'dataset_name')
+		self._mode_name_arr = config_parser.get('SETTINGS', 'mode_name_arr')
+		self._schema_version = config_parser.get('SETTINGS', 'schema_version')
+		self._tenant_environment_arr = config_parser.get('SETTINGS', 'tenant_environment_arr')
+		self._tenant_environment = config_parser.get('SETTINGS', 'tenant_environment')
+		self._tenant_name_arr = config_parser.get('SETTINGS', 'tenant_name_arr')
+		self._tenant_name = config_parser.get('SETTINGS', 'tenant_name')
+		self._tenant_number_arr = config_parser.get('SETTINGS', 'tenant_number_arr')
+		self._tenant_number = config_parser.get('SETTINGS', 'tenant_number')
+		self._tenant_product_arr = config_parser.get('SETTINGS', 'tenant_product_arr')
+		self._tenant_product = config_parser.get('SETTINGS', 'tenant_product')
+		self._tenant_url_arr = config_parser.get('SETTINGS', 'tenant_url_arr')
+		self._tenant_url = config_parser.get('SETTINGS', 'tenant_url')
+
+	@property
+	def agent_name_arr(self):
+		try:
+			result = str(self._agent_name_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def agent_name(self):
 		try:
 			return self._agent_name
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def algorithm(self, value=None):
-		if value:
-			self._algorithm = value
+	@property
+	def algorithm(self):
 		try:
 			return self._algorithm
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def bulk_load_external_events_path(self, value=None):
-		if value:
-			self._bulk_load_external_events_path = value
+	@property
+	def analytic_services_controller_path(self):
 		try:
-			return self._bulk_load_external_events_path
+			return self._path_analytic_services_controller
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def delimiter(self, value=None):
-		if value:
-			self._delimiter = value
+	@property
+	def analytic_transfer_controller_path(self):
+		try:
+			return self._path_analytic_transfer_controller
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def bulk_load_external_events_path(self):
+		try:
+			return self._path_bulk_load_external_events
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def customer_jobs_path(self):
+		try:
+			return self._path_customer_jobs
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def dataset_name_arr(self):
+		try:
+			result = str(self._dataset_name_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def dataset_name(self):
+		try:
+			return self._dataset_name
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def delimiter(self):
 		try:
 			return self._delimiter
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def duration(self, value=None):
-		if value:
-			self._duration = value
+	@property
+	def discover_service_path(self):
+		try:
+			return self._path_discover_service
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def duration(self):
 		try:
 			if type(self._duration) == str:
 				return int(self._duration)
 			return self._duration
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def email_from(self, value=None):
-		if value:
-			self._email_from = value
+	@property
+	def email_msg_status_from_arr(self):
 		try:
-			return self._email_from
+			result = str(self._email_msg_status_from_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def email_to(self, value=None):
-		if value:
-			self._email_to = value
+	@property
+	def email_msg_status_from(self):
 		try:
-			return self._email_to
+			return self._email_msg_status_from
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def email_server(self, value=None):
-		if value:
-			self._email_server = value
+	@property
+	def email_msg_status_to_arr(self):
+		try:
+			result = str(self._email_msg_status_to_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_msg_status_to(self):
+		try:
+			return self._email_msg_status_to
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_msg_support_from_arr(self):
+		try:
+			result = str(self._email_msg_support_from_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_msg_support_from(self):
+		try:
+			return self._email_msg_support_from
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_msg_support_to_arr(self):
+		try:
+			result = str(self._email_msg_support_to_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_msg_support_to(self):
+		try:
+			return self._email_msg_support_to
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_msg_support_cc_arr(self):
+		try:
+			result = str(self._email_msg_support_cc_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_msg_support_cc(self):
+		try:
+			return self._email_msg_support_cc
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_server_arr(self):
+		try:
+			result = str(self._email_server_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_server(self):
 		try:
 			return self._email_server
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def email_server_login(self, value=None):
-		if value:
-			self._email_server_login = value
+	@property
+	def email_server_login_arr(self):
+		try:
+			result = str(self._email_server_login_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_server_login(self):
 		try:
 			return self._email_server_login
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def email_server_password(self, value=None):
-		if value:
-			self._email_server_password = value
+	@property
+	def email_server_password_arr(self):
+		try:
+			result = str(self._email_server_password_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_server_password(self):
 		try:
 			return self._email_server_password
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def email_server_port(self, value=None):
-		if value:
-			self._email_server_port = value
+	@property
+	def email_server_port_arr(self):
+		try:
+			result = str(self._email_server_port_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def email_server_port(self):
 		try:
 			return self._email_server_port
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def encoding(self, value=None):
-		if value:
-			self._encoding = value
+	@property
+	def encoding(self):
 		try:
 			return self._encoding
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def end_date(self, value=None):
-		if value:
-			self._end_date = value
+	@property
+	def end_date(self):
 		try:
 			if (type(self._end_date) == str) and (self._end_date == 'None'):
 				return None
 			return self._end_date
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def end_date_time(self, value=None):
-		if value:
-			self._end_date_time = value
+	@property
+	def end_date_time(self):
 		try:
 			if (type(self._end_date_time) == str) and (self._end_date_time == 'None'):
 				return None
 			return self._end_date_time
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def end_time(self, value=None):
-		if value:
-			self._end_time = value
+	@property
+	def end_time(self):
 		try:
 			if (type(self._end_time) == str) and (self._end_time == 'None'):
 				return None
 			return self._end_time
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def external_gateway(self, value=None):
-		if value:
-			self._external_gateway = value
+	@property
+	def event_jobs_path(self):
 		try:
-			return self._external_gateway
+			return self._path_event_jobs
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def export_test_file(self, value=None):
-		if value:
-			self._export_test_file = value
+	@property
+	def export_file_arr(self):
 		try:
-			return self._export_test_file
+			result = str(self._file_export_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def export_test_path(self, value=None):
-		if value:
-			self._export_test_path = value
+	@property
+	def export_file(self):
 		try:
-			return self._export_test_path
+			return self._file_export
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def export_prod_file(self, value=None):
-		if value:
-			self._export_prod_file = value
+	@property
+	def export_change_file_arr(self):
 		try:
-			return self._export_prod_file
+			result = str(self._file_change_export_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def export_prod_path(self, value=None):
-		if value:
-			self._export_prod_path = value
+	@property
+	def export_change_file(self):
 		try:
-			return self._export_prod_path
+			return self._file_change_export
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def export_tables_path(self, value=None):
-		if value:
-			self._export_tables_path = value
+	@property
+	def export_path_arr(self):
 		try:
-			return self._export_tables_path
+			result = str(self._path_export_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def file_transfer_location_path(self, value=None):
-		if value:
-			self._file_transfer_location_path = value
+	@property
+	def export_path(self):
 		try:
-			return self._file_transfer_location_path
+			return self._path_export
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def flag_append(self, value=None):
-		if value:
-			self._flag_append = value
+	@property
+	def export_post_path_arr(self):
+		try:
+			result = str(self._path_export_post_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def export_post_path(self):
+		try:
+			return self._path_export_post
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def export_request_jobs_path(self):
+		try:
+			return self._path_export_request_jobs
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def export_tables_path(self):
+		try:
+			return self._path_export_tables
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def external_gateway_path_arr(self):
+		try:
+			result = str(self._path_external_gateway_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def external_gateway_path(self):
+		try:
+			return self._path_external_gateway
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def file_transfer_location_path(self):
+		try:
+			return self._path_file_transfer_location
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def flag_append(self):
 		try:
 			return bool(self._flag_append)
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def flag_clean_files(self, value=None):
-		if value:
-			self._flag_clean_files = value
+	@property
+	def flag_clean_files(self):
 		try:
 			return bool(self._flag_clean_files)
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def flag_csv(self, value=None):
-		if value:
-			self._flag_csv = value
+	@property
+	def flag_csv(self):
 		try:
 			return bool(self._flag_csv)
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def flag_csv_header(self, value=None):
-		if value:
-			self._flag_csv_header = value
+	@property
+	def flag_csv_header(self):
 		try:
 			return bool(self._flag_csv_header)
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def flag_test_export(self, value=None):
-		if value:
-			self._flag_test_export = value
+	@property
+	def flag_test_export(self):
 		try:
 			return bool(self._flag_test_export)
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def flag_test_report(self, value=None):
-		if value:
-			self._flag_test_report = value
+	@property
+	def flag_test_report(self):
 		try:
 			return bool(self._flag_test_report)
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def identity_bridge_table_id(self, value=None):
-		if value:
-			self._identity_bridge_table_id = value
+	@property
+	def identity_bridge_table_id_arr(self):
+		try:
+			result = str(self._identity_bridge_table_id_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def identity_bridge_table_id(self):
 		try:
 			return self._identity_bridge_table_id
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def identity_value(self, value=None):
-		if value:
-			self._identity_value = value
+	@property
+	def identity_records_path(self):
+		try:
+			return self._path_identity_records
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def identity_value(self):
 		try:
 			return self._identity_value
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def interval(self, value=None):
-		if value:
-			self._interval = value
+	@property
+	def import_path(self):
 		try:
-			if type(self._interval) == str:
-				return int(self._interval)
-			return self._interval
+			return self._path_import
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def import_base_url(self, value=None):
-		if value:
-			self._import_base_url = value
+	@property
+	def import_request_jobs_path(self):
 		try:
-			return self._import_base_url
+			return self._path_import_request_jobs
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def import_path(self, value=None):
-		if value:
-			self._import_path = value
+	@property
+	def interval_hours(self):
 		try:
-			return self._import_path
+			if type(self._interval_hours) == str:
+				return int(self._interval_hours)
+			return self._interval_hours
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def import_request_jobs_path(self, value=None):
-		if value:
-			self._import_request_jobs_path = value
+	@property
+	def interval_minutes(self):
 		try:
-			return self._import_request_jobs_path
+			return self._interval_minutes
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def marketing_data_path(self, value=None):
-		if value:
-			self._marketing_data_path = value
+	@property
+	def marketing_data_path(self):
 		try:
-			return self._marketing_data_path
+			return self._path_marketing_data
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def marketing_gateway_path(self, value=None):
-		if value:
-			self._marketing_gateway_path = value
+	@property
+	def marketing_gateway_path(self):
 		try:
-			return self._marketing_gateway_path
+			return self._path_marketing_gateway
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def report_name(self, value=None):
-		if value:
-			self._report_name = value
+	@property
+	def mode_name_arr(self):
 		try:
-			return self._report_name
+			result = str(self._mode_name_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def schema_version(self, value=None):
-		if value:
-			self._schema_version = value
+	@property
+	def reports_path_arr(self):
+		try:
+			result = str(self._path_reports_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def reports_path(self):
+		try:
+			return self._path_reports
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def schedule_job_arr(self):
+		try:
+			result = self._schedule_job_arr.split(',')
+			return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def schedule_job_chain(self):
+		try:
+			result = self._schedule_job_chain.split(',')
+			return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def schedule_job_change(self):
+		try:
+			result = self._schedule_job_change.split(',')
+			return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def schema_version(self):
 		try:
 			return self._schema_version
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def secret_key(self, value=None):
-		if value:
-			self._secret_key = value
+	@property
+	def secret_key_arr(self):
+		try:
+			result = str(self._secret_key_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def secret_key(self):
 		try:
 			return self._secret_key
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def start_date(self, value=None):
-		if value:
-			self._start_date = value
+	@property
+	def sleep_seconds(self):
+		try:
+			if type(self._sleep_seconds) == str:
+				return int(self._sleep_seconds)
+			return self._sleep_seconds
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def start_date(self):
 		try:
 			if (type(self._start_date) == str) and (self._start_date == 'None'):
 				return None
 			return self._start_date
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def start_date_time(self, value=None):
-		if value:
-			self._start_date_time = value
+	@property
+	def start_date_time(self):
 		try:
 			if (type(self._start_date_time) == str) and (self._start_date_time == 'None'):
 				return None
 			return self._start_date_time
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def start_time(self, value=None):
-		if value:
-			self._start_time = value
+	@property
+	def start_time(self):
 		try:
 			if (type(self._start_time) == str) and (self._start_time == 'None'):
 				return None
 			return self._start_time
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def table_id(self, value=None):
-		if value:
-			self._table_id = value
+	@property
+	def tables_path(self):
 		try:
-			return self._table_id
+			return self._path_tables
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def tenant_id(self, value=None):
-		if value:
-			self._tenant_id = value
+	@property
+	def tenant_id_arr(self):
+		try:
+			result = str(self._tenant_id_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_id(self):
 		try:
 			return self._tenant_id
 		except AttributeError or Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	@staticmethod
-	def load():
-		keys = {}
+	@property
+	def tenant_environment_arr(self):
 		try:
-			config_file = Path(root_path + gDirConfig + 'config.txt')
-			separator = '='
-			with open(config_file) as f:
-				for line in f:
-					if not line.startswith('#'):
-						if separator in line:
-							name, value = line.split(separator, 1)
-							keys[name.strip()] = value.strip()
-		except Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			result = str(self._tenant_environment_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
-		finally:
-			return keys
 
-	@staticmethod
-	def get_date_time_stamp():
-		result = datetime.now().strftime('%Y%m%d%H%M%S')
-		return result
+	@property
+	def tenant_environment(self):
+		try:
+			return self._tenant_environment
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_name_arr(self):
+		try:
+			result = str(self._tenant_name_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_name(self):
+		try:
+			return self._tenant_name
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_number_arr(self):
+		try:
+			result = str(self._tenant_number_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_number(self):
+		try:
+			return self._tenant_number
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_product_arr(self):
+		try:
+			result = str(self._tenant_product_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_product(self):
+		try:
+			return self._tenant_product
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_url_arr(self):
+		try:
+			result = str(self._tenant_url_arr).split(',')
+			if self.__mode == 'development':
+				return result[0]
+			elif self.__mode == 'test':
+				return result[1]
+			elif self.__mode == 'production':
+				return result[2]
+			else:
+				return result
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	@property
+	def tenant_url(self):
+		try:
+			return self._tenant_url
+		except AttributeError or Exception as e:
+			logger.exception('Exception occurred: {}'.format(str(e)))
+			return None
 
 
 if __name__ == '__main__':

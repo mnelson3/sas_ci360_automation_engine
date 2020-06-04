@@ -19,8 +19,8 @@ class Log:
 		else:
 			Log.__instance = self
 
-		if 'log_file' in kwargs:
-			self._log_file = kwargs['log_file']
+			if 'log_file' in kwargs:
+				self._log_file = kwargs['log_file']
 
 	def log_file(self, value=None):
 		if value:
@@ -28,7 +28,7 @@ class Log:
 		try:
 			return self._log_file
 		except AttributeError or Exception as e:
-			logging.exception('Exception occurred: ' + str(e))
+			logging.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
 	def logging(self):

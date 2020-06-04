@@ -1,103 +1,112 @@
 #! /venv/bin/python3
 # -*- mode: python ; coding: utf-8 -*-
 
+import shutil
+from datetime import datetime
 from pathlib import Path
 
-from communication import Communication
-from connection import Connection
 from custom import root_path
 from log import Log
+from connection import Connection
 from reporter import Reporter
+from security import Security
 from standard import Standard
 
-_log_file_ = Path(root_path + Standard.gDirLog + 'custom-upload_identity_bridge_data.log')
-_log_ = Log.Log.get_instance()
-_log_.log_file(_log_file_)
-logger = _log_.logging()
+__log_file = Path('{0}{1}{2}'.format(root_path, '/logs/', 'custom-upload_identity_bridge_data.log'))
+__log = Log.Log.get_instance()
+__log.log_file(__log_file)
+logger = __log.logging()
 
 
 class UploadIdentityBridgeData:
-	__instance = None
+	__mode = None
 
-	@staticmethod
-	def get_instance():
-		if UploadIdentityBridgeData.__instance is None:
-			UploadIdentityBridgeData()
-		return UploadIdentityBridgeData.__instance
-
-	def __init__(self):
-		if UploadIdentityBridgeData.__instance is not None:
-			raise Exception('This class is a singleton!')
+	def __init__(self, **kwargs):
+		if 'mode' in kwargs:
+			UploadIdentityBridgeData.__mode = kwargs['mode']
 		else:
-			UploadIdentityBridgeData.__instance = self
+			UploadIdentityBridgeData.__mode = None
+		self.__mode = UploadIdentityBridgeData.__mode
 
-		standard = Standard.Standard.get_instance()
+		if self.__mode is not None:
+			self._reporter = Reporter.Reporter(mode=self.__mode)
+			self._standard = Standard.Standard(mode=self.__mode)
+			self._export_file = self._standard.export_file_arr
+			self._export_path = self._standard.export_path_arr
+			self._export_post_path = self._standard.export_post_path_arr
+			self._external_gateway_path = self._standard.external_gateway_path_arr
+			self._secret_key = self._standard.secret_key_arr
+			self._tenant_id = self._standard.tenant_id_arr
+		else:
+			self._reporter = Reporter.Reporter()
+			self._standard = Standard.Standard()
+			self._export_file = self._standard.export_file
+			self._export_path = self._standard.export_path
+			self._export_post_path = self._standard.export_post_path
+			self._external_gateway_path = self._standard.external_gateway_path
+			self._secret_key = self._standard.secret_key
+			self._tenant_id = self._standard.tenant_id
 
-		self._flag_test_export = standard.flag_test_export()
-		self._flag_test_report = standard.flag_test_report()
-		self._suppression_email_domain_list = standard.suppression_email_domain_list()
-		self._suppression_form_name_list = standard.suppression_form_name_list()
+		self._connection = Connection.Connection()
+		self._security = Security.Security()
+		self._gDirDataResponseFileTransferLocationPost = self._standard.gDirDataResponseFileTransferLocationPost
+		self._file_transfer_location_path = self._standard.file_transfer_location_path
 
-	@staticmethod
-	def run(result=None):
+	def run(self, result=None, **kwargs):
 		try:
-			communication = Communication.Communication.get_instance()
-			connection = Connection.Connection.get_instance()
-			reporter = Reporter.Reporter.get_instance()
-			standard = Standard.Standard.get_instance()
+			time_stamp = datetime.now().strftime('%Y:%m:%d:%H:%M:%S')
+			time_stamp_ = time_stamp.replace(':', '')
 
-			time_stamp = standard.get_date_time_stamp()
-			secret_key = standard.secret_key()
+			if self.__mode is not None:
+				folder = '{0}{1}/'.format(self._gDirDataResponseFileTransferLocationPost, self.__mode)
+			else:
+				folder = '{0}{1}/'.format(self._gDirDataResponseFileTransferLocationPost, 'development')
 
-			# POST to fileTransferLocation - no payload
-			connection.post_file_transfer_location(result=result, secret_key=secret_key)
-			reporter.build_report(prefix=time_stamp, name='post_file_transfer_location', json_response=result)
+			export_folder = self._export_path
+			external_gateway_path = self._external_gateway_path
+			file_transfer_location_path = self._file_transfer_location_path
 
-			url_put = None
+			secret_key = self._secret_key
+			tenant_id = self._tenant_id
+			token = self._security.generate_jwt(secret_key=secret_key, tenant_id=tenant_id)
+
+			action = 'POST'
+			data = None
+			headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
+			params = None
+			url = 'https://{0}{1}'.format(external_gateway_path, file_transfer_location_path)
+			result = self._connection.conn(action=action, data=data, headers=headers, params=params, url=url)
+			self._reporter.store_response(folder=folder, name='file_transfer_location_post_{}'.format(time_stamp_), data=result)
+
+			__signed_url = None
 			if result is not None:
-				for item in result:
-					url_put = item['signedURL']
+				__signed_url = result['signedURL']
+			temporary_url = __signed_url
 
-				if standard.flag_test_export() is True:
-					file_path = Path(root_path + standard.export_test_path() + standard.export_test_file())
-				else:
-					file_path = Path(root_path + standard.export_prod_path() + standard.export_prod_file())
+			if 'file_name' in kwargs:
+				file_name = kwargs['file_name']
+				csv_file = Path('{0}'.format(file_name))
+			else:
+				file_post_path = self._export_post_path
+				file_export_path = Path('{0}{1}'.format(root_path, self._export_path))
+				file_export = self._export_file
+				file_export_timestamp = '{0}_{1}{2}'.format(file_export[:-4], time_stamp_, '.CSV')
+				shutil.copy(Path('{0}/{1}'.format(file_post_path, file_export)), Path('{0}/{1}'.format(file_export_path, file_export_timestamp)))
+				file_name = 'SAS1FBCHAIN_{}'.format(time_stamp_)
+				csv_file = Path('{0}{1}{2}{3}'.format(root_path, export_folder, file_name, '.CSV'))
 
-				# PUT to temporary URL
-				connection.put_file_location(result=result, url_put=url_put, file_path=file_path)
-				reporter.build_report(prefix=time_stamp, name='put_file_location', json_response=result)
-
-			# POST to importRequestJobs - set payload [TABLE_ID] and [TEMPORARY_URL]
-			table_id = standard.table_id()
-			connection.post_import_request_job(result=result, secret_key=secret_key, table_id=table_id, temporary_url=url_put)
-			reporter.build_report(prefix=time_stamp, name='post_import_request_job', json_response=result)
-
-			import_request_id = None
-			for item in result:
-				import_request_id = item['id']
-
-			# GET from importRequestJobs - [IMPORT_REQUEST_ID]
-			connection.get_import_request_jobs(result=result, secret_key=secret_key, import_request_id=import_request_id)
-			reporter.build_report(prefix=time_stamp, name='get_import_request_jobs', json_response=result)
-
-			# GET from importRequestJobs - failureOutputFiles
-			for item in result:
-				if item['failureOutputFiles'] is not None:
-					for i in item['failureOutputFiles']:
-						import_request_id = i['url']
-
-			connection.get_import_request_jobs(result=result, secret_key=secret_key, import_request_id=import_request_id)
-			reporter.build_report(prefix=time_stamp, name='get_import_request_jobs', json_response=result)
-
-			msg_from = 'SAS CI360 Automation Engine [DO-NOT-REPLY]'
-			msg_to = 'Mark.Nelson@sas.com'
-			msg_subject = 'Daily Identity Bridge Update: {}'.format(time_stamp)
-			communication.send_email(msg_from=msg_from, msg_to=msg_to, msg_subject=msg_subject)
+			result = None
+			action = 'PUT'
+			data = csv_file
+			headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+			params = None
+			url = temporary_url
+			result = self._connection.conn(action=action, data=data, headers=headers, params=params, url=url)
 		except Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 		finally:
-			return
+			return result
 
 
 if __name__ == '__main__':

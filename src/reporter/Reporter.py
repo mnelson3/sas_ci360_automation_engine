@@ -1,56 +1,56 @@
 #! /venv/bin/python3
 # -*- mode: python ; coding: utf-8 -*-
 
+import json
 from pathlib import Path
 
-import pandas
-
-from custom import root_path
+from reporter import root_path
 from log import Log
+from connection import Connection
+from security import Security
 from standard import Standard
 
-_log_file_ = Path(root_path + Standard.gDirLog + 'reporter.log')
-_log_ = Log.Log.get_instance()
-_log_.log_file(_log_file_)
-logger = _log_.logging()
+__log_file = Path('{0}{1}{2}'.format(root_path, '/logs/', 'reporter.log'))
+__log = Log.Log.get_instance()
+__log.log_file(__log_file)
+logger = __log.logging()
 
 
 class Reporter:
-	__instance = None
+	__mode = None
 
-	@staticmethod
-	def get_instance():
-		if Reporter.__instance is None:
-			Reporter()
-		return Reporter.__instance
-
-	def __init__(self):
-		if Reporter.__instance is not None:
-			raise Exception('This class is a singleton!')
+	def __init__(self, **kwargs):
+		if 'mode' in kwargs:
+			Reporter.__mode = kwargs['mode']
 		else:
-			Reporter.__instance = self
+			Reporter.__mode = None
+		self.__mode = Reporter.__mode
 
-		standard = Standard.Standard.get_instance()
+		if self.__mode is not None:
+			self._standard = Standard.Standard(mode=self.__mode)
+			self._report_folder = self._standard.reports_path_arr
+			self._secret_key = self._standard.secret_key_arr
+			self._tenant_id = self._standard.tenant_id_arr
+		else:
+			self._standard = Standard.Standard()
+			self._report_folder = self._standard.reports_path
+			self._secret_key = self._standard.secret_key
+			self._tenant_id = self._standard.tenant_id
 
-		self._flag_test_export = standard.flag_test_export()
-		self._flag_test_report = standard.flag_test_report()
-		self._suppression_email_domain_list = standard.suppression_email_domain_list()
-		self._suppression_form_name_list = standard.suppression_form_name_list()
+		self._security = Security.Security()
+		self._connection = Connection.Connection()
 
 	@staticmethod
-	def build_report(**kwargs):
+	def store_response(**kwargs):
 		try:
-			prefix = kwargs['prefix']
+			folder = kwargs['folder']
 			name = kwargs['name']
-			json_response = kwargs['json_response']
-
-			report_file = Path(root_path + Standard.gDirReport + prefix + name + '.csv')
-
-			dataframe = pandas.read_csv(filepath_or_buffer=json_response, sep=',', delimiter=',', encoding='UTF-8')
-
-			dataframe.to_csv(path_or_buf=report_file, sep=',', index=False, header=False)
+			data = kwargs['data']
+			json_file = Path('{0}{1}{2}{3}'.format(root_path, folder, name, '.JSON'))
+			with open(json_file, 'w', encoding='utf-8') as outfile:
+				json.dump(data, outfile, ensure_ascii=False, indent=4)
 		except Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 		finally:
 			return
