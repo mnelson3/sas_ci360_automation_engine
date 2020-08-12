@@ -61,8 +61,8 @@ def test_datetime():
 	assert __standard.schedule_job_arr == ['CHAIN', 'day', '06', '05', 'CHANGE', 'friday', '06', '10']
 	assert __standard.schedule_job_chain == ['CHAIN', 'day', '06', '05']
 	assert __standard.schedule_job_change == ['CHANGE', 'friday', '06', '10']
-	# assert __standard.sleep_seconds == 300
-	assert __standard.sleep_seconds == 15
+	assert __standard.sleep_seconds == 300
+	# assert __standard.sleep_seconds == 15
 	assert __standard.start_date is None
 	assert __standard.start_date_time is None
 	assert __standard.start_time is None
@@ -137,7 +137,7 @@ def test_settings():
 	assert __standard.encoding == 'UTF-8'
 	assert __standard.mode_name_arr == ['development']
 	# assert __standard.mode_name_arr == ['development', 'test', 'production']
-	assert __standard.mode_name == 'development'
+	# assert __standard.mode_name == 'development'
 	assert __standard.schema_version == '3'
 	assert __standard.tenant_environment_arr == ['abcdefgh', 'ciffbust', 'ciffbkus']
 	assert __standard.tenant_environment == 'abcdefgh'

@@ -1,7 +1,4 @@
-/.idea/
 /.pytest_cache/
-/.vs/
-/.vscode/
 /venv/
 file_transfer_location_post_20200519120935.JSON
 identity_bridge_data.csv

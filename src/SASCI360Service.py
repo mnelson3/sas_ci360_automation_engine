@@ -1,78 +1,92 @@
-#! /venv/bin/python3
+#! /venv/bin/python
 # -*- mode: python ; coding: utf-8 -*-
 
+import logging
 import os
+import socket
 import sys
-import time
-from logging.handlers import SysLogHandler
 from pathlib import Path
 
-from service import find_syslog, Service
-
-from log import Log
-from standard import Standard
-
-_current_file_ = __file__
-_real_path_ = os.path.realpath(_current_file_)
-_dir_path_ = os.path.dirname(_real_path_)
-_dir_name_ = os.path.basename(_dir_path_)
-_src_path_ = os.path.abspath(os.path.join(_dir_path_, os.pardir))
-_root_path_ = os.path.abspath(os.path.join(_src_path_, os.pardir))
-sys.path.append(_dir_path_)
-sys.path.append(Path(_dir_path_ + '/standard'))
-
-_log_file_ = _src_path_ + Standard.gDirLog + 'service.log'
-_log_ = Log.Log.get_instance()
-_log_.log_file(_log_file_)
-logger = _log_.logging()
+import servicemanager
+from win32 import win32event, win32service
+from win32.lib import win32serviceutil
 
 
-class SASCI360Service(Service):
+class SASCI360Service(win32serviceutil.ServiceFramework):
+	_svc_name_ = "SASCI360Service"
+	_svc_display_name_ = "SAS CI360 Service"
+	_svc_description_ = "Windows Service used to run SAS CI360 Automation Engine as a service."
 
-	def __init__(self, *args, **kwargs):
-		super(SASCI360Service, self).__init__(*args, **kwargs)
-		logger.addHandler(SysLogHandler(address=find_syslog(), facility=SysLogHandler.LOG_DAEMON))
-		self.run()
+	_current_file_ = __file__
+	_real_path_ = os.path.realpath(_current_file_)
+	_dir_path_ = os.path.dirname(_real_path_)
+	_dir_name_ = os.path.basename(_dir_path_)
+	_src_path_ = os.path.abspath(os.path.join(_dir_path_, os.pardir))
+	_root_path_ = os.path.abspath(os.path.join(_src_path_, os.pardir))
+	sys.path.append(_dir_path_)
 
-	def restart(self):
+	def __init__(self, *args):
+		log_file = Path('{0}{1}{2}'.format(self._src_path_, '/logs/', 'service.log'))
+		logger = logging.getLogger()
+		formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+		handler = logging.FileHandler(log_file)
+		handler.setFormatter(formatter)
+		logger.setLevel(logging.ERROR)
+		logger.addHandler(handler)
+
+		win32serviceutil.ServiceFramework.__init__(self, args[0])
+		self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)
+		socket.setdefaulttimeout(60)
+
+	def SvcStop(self):
 		try:
-			self.stop()
-			self.start()
+			self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
+			win32event.SetEvent(self.hWaitStop)
 		except Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logging.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
-	def run(self):
+	def SvcDoRun(self):
 		try:
-			src_path = Path(_dir_path_ + '/scheduler')
-			sys.path.append(src_path)
-			from scheduler import Scheduler
-			s = Scheduler.Scheduler.get_instance()
-			while not self.got_sigterm():
-				s.run()
-				time.sleep(60)
+			servicemanager.LogMsg(servicemanager.EVENTLOG_INFORMATION_TYPE, servicemanager.PYS_SERVICE_STARTED, (self._svc_name_, ''))
+			self.main()
 		except Exception as e:
-			logger.exception('Exception occurred: ' + str(e))
+			logging.exception('Exception occurred: {}'.format(str(e)))
+			return None
+
+	def main(self):
+		try:
+			src_path = Path(self._dir_path_.format('/main'))
+			sys.path.append(src_path)
+			from main import Main
+			rc = None
+			while rc != win32event.WAIT_OBJECT_0:
+				Main.start()
+				rc = win32event.WaitForSingleObject(self.hWaitStop, 50000)
+		except Exception as e:
+			logging.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
 
 if __name__ == '__main__':
-	if len(sys.argv) != 2:
-		sys.exit('Syntax: %s COMMAND' % sys.argv[0])
+	win32serviceutil.HandleCommandLine(SASCI360Service)
 
-	cmd = sys.argv[1].lower()
-	service = SASCI360Service('SAS CI360 Automation Engine', pid_dir='/tmp')
-
-	if cmd == 'start':
-		service.start()
-	elif cmd == 'stop':
-		service.stop()
-	elif cmd == 'restart':
-		service.restart()
-	elif cmd == 'status':
-		if service.is_running():
-			print("Service is running.")
-		else:
-			print("Service is not running.")
-	else:
-		sys.exit('Unknown command "%s".' % cmd)
+# =================================================================================================================
+# python SASCI360Service.py install
+# python SASCI360Service.py remove
+#
+# Usage: 'SASCI360Service.py [options] install|update|remove|start [...]|stop|restart [...]|debug [...]'
+# Options for 'install' and 'update' commands only:
+#  --username domain\username : The Username the service is to run under
+#  --password password : The password for the username
+#  --startup [manual|auto|disabled|delayed] : How the service starts, default = manual
+#  --interactive : Allow the service to interact with the desktop.
+#  --perfmonini file: .ini file to use for registering performance monitor data
+#  --perfmondll file: .dll file to use when querying the service for
+#    performance data, default = perfmondata.dll
+# Options for 'start' and 'stop' commands only:
+#  --wait seconds: Wait for the service to actually start or stop.
+#                  If you specify --wait with the 'stop' option, the service
+#                  and all dependent services will be stopped, each waiting
+#                  the specified period.
+# =================================================================================================================

@@ -11,13 +11,14 @@ from custom import root_path
 from log import Log
 from standard import Standard
 
-_log_file_ = Path(root_path + Standard.gDirLog + 'custom-build_email_data.log')
-_log_ = Log.Log.get_instance()
-_log_.log_file(_log_file_)
-logger = _log_.logging()
+_log_file = Path('{0}{1}{2}'.format(root_path, '/logs/', 'custom-build_email_data.log'))
+_log = Log.Log.get_instance()
+_log.log_file(_log_file)
+logger = _log.logging()
 
 
 class BuildEmailData:
+	__mode = None
 	__instance = None
 
 	@staticmethod
@@ -26,22 +27,33 @@ class BuildEmailData:
 			BuildEmailData()
 		return BuildEmailData.__instance
 
-	def __init__(self):
+	def __init__(self, **kwargs):
 		if BuildEmailData.__instance is not None:
 			raise Exception('This class is a singleton!')
 		else:
 			BuildEmailData.__instance = self
+		if 'mode' in kwargs:
+			BuildEmailData.__mode = kwargs['mode']
+		else:
+			BuildEmailData.__mode = None
+		self.__mode = BuildEmailData.__mode
 
-		standard = Standard.Standard.get_instance()
-
-		self._export_prod_path = standard.export_prod_path()
-		self._export_test_path = standard.export_test_path()
-		self._export_prod_file = standard.export_prod_file()
-		self._export_test_file = standard.export_test_file()
-		self._flag_test_export = standard.flag_test_export()
-		self._flag_test_report = standard.flag_test_report()
-		self._suppression_email_domain_list = standard.suppression_email_domain_list()
-		self._suppression_form_name_list = standard.suppression_form_name_list()
+		if self.__mode is not None:
+			self._standard = Standard.Standard(mode=self.__mode)
+			self._export_path = self._standard.export_path_arr
+			self._export_file = self._standard.export_file_arr
+			self._flag_test_export = self._standard.flag_test_export
+			self._flag_test_report = self._standard.flag_test_report
+			self._suppression_email_domain_list = self._standard.suppression_email_domain_list
+			self._suppression_form_name_list = self._standard.suppression_form_name_list
+		else:
+			self._standard = Standard.Standard()
+			self._export_path = self._standard.export_path
+			self._export_file = self._standard.export_file
+			self._flag_test_export = self._standard.flag_test_export
+			self._flag_test_report = self._standard.flag_test_report
+			self._suppression_email_domain_list = self._standard.suppression_email_domain_list()
+			self._suppression_form_name_list = self._standard.suppression_form_name_list()
 
 	def build_email_list(self):
 		try:
