@@ -46,7 +46,7 @@ class Communication:
 	def email_server(self):
 		try:
 			return self._email_server
-		except AttributeError or Exception as e:
+		except (AttributeError, Exception) as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -54,7 +54,7 @@ class Communication:
 	def email_server_login(self):
 		try:
 			return self._email_server_login
-		except AttributeError or Exception as e:
+		except (AttributeError, Exception) as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -62,7 +62,7 @@ class Communication:
 	def email_server_password(self):
 		try:
 			return self._email_server_password
-		except AttributeError or Exception as e:
+		except (AttributeError, Exception) as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -70,7 +70,7 @@ class Communication:
 	def email_server_port(self):
 		try:
 			return int(self._email_server_port)
-		except AttributeError or Exception as e:
+		except (AttributeError, Exception) as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -145,8 +145,7 @@ class Communication:
 		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
-		finally:
-			return result
+		return result
 
 
 if __name__ == '__main__':

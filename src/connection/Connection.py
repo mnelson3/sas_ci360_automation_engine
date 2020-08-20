@@ -73,8 +73,7 @@ class Connection:
 		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
-		finally:
-			return result
+		return result
 
 
 if __name__ == '__main__':
