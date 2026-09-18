@@ -11,7 +11,7 @@ setup(
     url='https://github.com/mnelson3/sas_ci360_automation_engine',
     license='Apache-2.0',
     author='Mark Nelson',
-    author_email='mark.a.nelson@outlook.com',
+    author_email='support@nelsongrey.com',
     description='Automation engine that downloads Discover data from the SAS Customer Intelligence 360 '
                  'datahub, applies business rules to it, and uploads the resulting CSV file back to CI360.'
 )
