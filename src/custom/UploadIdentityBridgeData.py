@@ -92,7 +92,7 @@ class UploadIdentityBridgeData:
 				file_export = self._export_file
 				file_export_timestamp = '{0}_{1}{2}'.format(file_export[:-4], time_stamp_, '.CSV')
 				shutil.copy(Path('{0}/{1}'.format(file_post_path, file_export)), Path('{0}/{1}'.format(file_export_path, file_export_timestamp)))
-				file_name = 'SASCHAIN_{}'.format(time_stamp_)
+				file_name = '{0}_{1}'.format(file_export[:-4], time_stamp_)
 				csv_file = Path('{0}{1}{2}{3}'.format(root_path, export_folder, file_name, '.CSV'))
 
 			result = None
