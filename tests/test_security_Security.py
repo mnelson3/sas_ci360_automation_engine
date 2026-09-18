@@ -4,9 +4,9 @@
 from security import Security
 from standard import Standard
 
-__prod_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6IjA1OTg2ODRhMDYwMDAxMGUyZWIyNDcxNCJ9.eZw5gYkxdLe8FHbrS3ctcYOn4Z81mO32R2AdnvN8jHk'
-__test_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6IjhhYTYxNmUzMzIwMDAxMGE1NjAwMTVmZCJ9.UMBKbVNyx2Z8jpAgpr6TfBvPWGpBKFwL8MMW9-E1O2k'
-__dev_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'
+__prod_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMyJ9.ZT31QADqh-vgFhGLAaTbPJiV3fmHqe8NZdnovNYD5-4'
+__test_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMiJ9.4yCXGMeCm1aGTt66YLaYppUXnXpq2v6ZjnSSGC-V7s4'
+__dev_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'
 
 
 def test_generate_jwt_mode_development():
@@ -15,10 +15,10 @@ def test_generate_jwt_mode_development():
 	__standard = Standard.Standard(mode=mode)
 	secret_key = __standard.secret_key_arr
 	print('secret_key : {0}'.format(secret_key))
-	assert secret_key == 'ODcxODE0bGkzaTNoMzM3MjdtZzJpMWpoY2M5ZTloaDY4'
+	assert secret_key == 'NbuOo1vj7C02NfJqFZ/t01Nroxw1O/hJ'
 	tenant_id = __standard.tenant_id_arr
 	print('tenant_id : {0}'.format(tenant_id))
-	assert tenant_id == 'dd0c73c9fe00013c617772f8'
+	assert tenant_id == 'a1a1a1a1a1a1a1a1a1a1a101'
 	result = __security.generate_jwt(tenant_id=tenant_id, secret_key=secret_key)
 	print('result : {0}'.format(result))
 	assert result == __dev_token
@@ -30,10 +30,10 @@ def test_generate_jwt_mode_test():
 	__standard = Standard.Standard(mode=mode)
 	secret_key = __standard.secret_key_arr
 	print('secret_key : {0}'.format(secret_key))
-	assert secret_key == 'MTkwNjEzMjNsN2w0a2FrbWVjZ2c2aGVrNzg4YWkzbTMxZzY='
+	assert secret_key == '0jtBp0UKuRYSSS4ClHxanzCmbuI2HURn'
 	tenant_id = __standard.tenant_id_arr
 	print('tenant_id : {0}'.format(tenant_id))
-	assert tenant_id == '8aa616e33200010a560015fd'
+	assert tenant_id == 'a1a1a1a1a1a1a1a1a1a1a102'
 	result = __security.generate_jwt(tenant_id=tenant_id, secret_key=secret_key)
 	print('result : {0}'.format(result))
 	assert result == __test_token
@@ -45,10 +45,10 @@ def test_generate_jwt_mode_production():
 	__standard = Standard.Standard(mode=mode)
 	secret_key = __standard.secret_key_arr
 	print('secret_key : {0}'.format(secret_key))
-	assert secret_key == 'MjAwMTIxMTJoNGMxMWs2OTUwbWw2bGpkNmFpbmNuMDI0NTY='
+	assert secret_key == 'E0mExzZo7kjaNtCOBv6RjV9J79Gr8JYm'
 	tenant_id = __standard.tenant_id_arr
 	print('tenant_id : {0}'.format(tenant_id))
-	assert tenant_id == '0598684a0600010e2eb24714'
+	assert tenant_id == 'a1a1a1a1a1a1a1a1a1a1a103'
 	result = __security.generate_jwt(tenant_id=tenant_id, secret_key=secret_key)
 	print('result : {0}'.format(result))
 	assert result == __prod_token
@@ -59,10 +59,10 @@ def test_generate_jwt():
 	__standard = Standard.Standard()
 	secret_key = __standard.secret_key
 	print('secret_key : {0}'.format(secret_key))
-	assert secret_key == 'ODcxODE0bGkzaTNoMzM3MjdtZzJpMWpoY2M5ZTloaDY4'
+	assert secret_key == 'NbuOo1vj7C02NfJqFZ/t01Nroxw1O/hJ'
 	tenant_id = __standard.tenant_id
 	print('tenant_id : {0}'.format(tenant_id))
-	assert tenant_id == 'dd0c73c9fe00013c617772f8'
+	assert tenant_id == 'a1a1a1a1a1a1a1a1a1a1a101'
 	result = __security.generate_jwt(tenant_id=tenant_id, secret_key=secret_key)
 	print('result : {0}'.format(result))
 	assert result == __dev_token

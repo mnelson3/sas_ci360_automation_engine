@@ -46,7 +46,7 @@ class Security:
 			secret_key_bytes = bytes(str(secret_key), encoding=encoding)
 			secret_key_encoded = base64.b64encode(secret_key_bytes)
 			token = jwt.encode(payload=payload, key=secret_key_encoded, algorithm=algorithm)
-			result = token.decode()
+			result = token
 		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None

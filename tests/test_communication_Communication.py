@@ -14,7 +14,7 @@ __email_msg_support_to = 'nelson.mark.a@gmail.com'
 __email_msg_support_cc = 'nelson.mark.a@gmail.com'
 __email_server = 'smtp.gmail.com'
 __email_server_login = 'sas.ci360.automation.engine@gmail.com'
-__email_server_password = 'H*9p%4F#2bN'
+__email_server_password = 'Ex4mpl3-P@ss'
 __email_server_port = 465
 
 
@@ -72,7 +72,7 @@ def test_communication_send_status_message_mode():
 	report_folder = standard.reports_path_arr
 
 	file_name = 'import_request_jobs_get_{}'.format(time_stamp_)
-	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', report_folder, file_name, '.CSV'))
+	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', report_folder, file_name, '.CSV'))
 
 	email_msg_from = 'SAS CI360 Automation Engine [DO-NOT-REPLY] <{}>'.format(email_msg_status_from)
 	email_msg_to = email_msg_status_to
@@ -102,7 +102,7 @@ def test_communication_send_status_message():
 	report_folder = standard.reports_path
 
 	file_name = 'import_request_jobs_get_{}'.format(time_stamp_)
-	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', report_folder, file_name, '.CSV'))
+	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', report_folder, file_name, '.CSV'))
 
 	email_msg_from = 'SAS CI360 Automation Engine [DO-NOT-REPLY] <{}>'.format(email_msg_status_from)
 	email_msg_to = email_msg_status_to
@@ -134,8 +134,8 @@ def test_communication_send_support_message_mode():
 	email_msg_support_cc = standard.email_msg_support_cc_arr
 	export_folder = standard.export_path_arr
 
-	file_name = 'SAS1FBCHANGE_{}'.format(time_stamp_)
-	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', export_folder, file_name, '.CSV'))
+	file_name = 'SASCHANGE_{}'.format(time_stamp_)
+	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', export_folder, file_name, '.CSV'))
 
 	tenant_environment = standard.tenant_environment_arr
 	tenant_name = standard.tenant_name_arr
@@ -186,8 +186,8 @@ def test_communication_send_support_message():
 	email_msg_support_cc = standard.email_msg_support_cc
 	export_folder = standard.export_path_arr
 
-	file_name = 'SAS1FBCHANGE_{}'.format(time_stamp_)
-	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', export_folder, file_name, '.CSV'))
+	file_name = 'SASCHANGE_{}'.format(time_stamp_)
+	csv_file = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', export_folder, file_name, '.CSV'))
 
 	email_msg_from = 'SAS CI360 Automation Engine [DO-NOT-REPLY] <{}>'.format(email_msg_support_from)
 	email_msg_to = email_msg_support_to

@@ -71,20 +71,20 @@ def test_datetime():
 def test_email():
 	assert __standard.email_msg_status_from_arr == ['sas.ci360.automation.engine@gmail.com', 'None', 'None']
 	assert __standard.email_msg_status_from == 'sas.ci360.automation.engine@gmail.com'
-	assert __standard.email_msg_status_to_arr == ['nelson.mark.a@gmail.com', 'SAS360CHAINING@1fbusa.com', 'SAS360CHAINING@1fbusa.com']
+	assert __standard.email_msg_status_to_arr == ['nelson.mark.a@gmail.com', 'SAS360CHAINING@example.com', 'SAS360CHAINING@example.com']
 	assert __standard.email_msg_status_to == 'nelson.mark.a@gmail.com'
 	assert __standard.email_msg_support_from == 'sas.ci360.automation.engine@gmail.com'
 	assert __standard.email_msg_support_to == 'nelson.mark.a@gmail.com'
 	assert __standard.email_msg_support_cc == 'nelson.mark.a@gmail.com'
 	assert __standard.email_server == 'smtp.gmail.com'
 	assert __standard.email_server_login == 'sas.ci360.automation.engine@gmail.com'
-	assert __standard.email_server_password == 'H*9p%4F#2bN'
+	assert __standard.email_server_password == 'Ex4mpl3-P@ss'
 	assert __standard.email_server_port == '465'
 
 
 def test_files():
-	assert __standard.export_file == 'SAS1FBCHAIN.CSV'
-	assert __standard.export_change_file == 'SAS1FBCHANGE.CSV'
+	assert __standard.export_file == 'SASCHAIN.CSV'
+	assert __standard.export_change_file == 'SASCHANGE.CSV'
 
 
 def test_flags():
@@ -97,12 +97,12 @@ def test_flags():
 
 
 def test_identities():
-	assert __standard.identity_bridge_table_id == '19ec53a0-8fdf-4ac1-9649-14168ef980a6'
+	assert __standard.identity_bridge_table_id == '00000000-0000-0000-0000-000000000001'
 	assert __standard.identity_value == 'None'
-	assert __standard.secret_key_arr == ['ODcxODE0bGkzaTNoMzM3MjdtZzJpMWpoY2M5ZTloaDY4', 'MTkwNjEzMjNsN2w0a2FrbWVjZ2c2aGVrNzg4YWkzbTMxZzY=', 'MjAwMTIxMTJoNGMxMWs2OTUwbWw2bGpkNmFpbmNuMDI0NTY=']
-	assert __standard.secret_key == 'ODcxODE0bGkzaTNoMzM3MjdtZzJpMWpoY2M5ZTloaDY4'
-	assert __standard.tenant_id_arr == ['dd0c73c9fe00013c617772f8', '8aa616e33200010a560015fd', '0598684a0600010e2eb24714']
-	assert __standard.tenant_id == 'dd0c73c9fe00013c617772f8'
+	assert __standard.secret_key_arr == ['NbuOo1vj7C02NfJqFZ/t01Nroxw1O/hJ', '0jtBp0UKuRYSSS4ClHxanzCmbuI2HURn', 'E0mExzZo7kjaNtCOBv6RjV9J79Gr8JYm']
+	assert __standard.secret_key == 'NbuOo1vj7C02NfJqFZ/t01Nroxw1O/hJ'
+	assert __standard.tenant_id_arr == ['a1a1a1a1a1a1a1a1a1a1a101', 'a1a1a1a1a1a1a1a1a1a1a102', 'a1a1a1a1a1a1a1a1a1a1a103']
+	assert __standard.tenant_id == 'a1a1a1a1a1a1a1a1a1a1a101'
 
 
 def test_paths():
@@ -113,7 +113,7 @@ def test_paths():
 	assert __standard.discover_service_path == '/marketingGateway/discoverService/dataDownload/eventData'
 	assert __standard.event_jobs_path == '/marketingData/eventJobs'
 	assert __standard.export_path == '/data/export/development/'
-	assert __standard.export_post_path == 'D:/Clients/First_Financial/SAS360/CHAINING/DEVELOPMENT'
+	assert __standard.export_post_path == 'D:/Clients/Example_Financial/SAS360/CHAINING/DEVELOPMENT'
 	assert __standard.export_request_jobs_path == '/marketingData/exportRequestJobs'
 	assert __standard.export_tables_path == '/dbtReport,/detail/partitionedData,/detail/nonPartitionedData'
 	assert __standard.external_gateway_path == 'extapigwservice-training.ci360.sas.com'
@@ -139,9 +139,9 @@ def test_settings():
 	# assert __standard.mode_name_arr == ['development', 'test', 'production']
 	# assert __standard.mode_name == 'development'
 	assert __standard.schema_version == '3'
-	assert __standard.tenant_environment_arr == ['abcdefgh', 'ciffbust', 'ciffbkus']
+	assert __standard.tenant_environment_arr == ['abcdefgh', 'exampletst', 'exampleprd']
 	assert __standard.tenant_environment == 'abcdefgh'
-	assert __standard.tenant_name_arr == ['GCIE PSD Regional US', '1st Financial Bank USA Production Tenant', '1st Financial Bank USA']
+	assert __standard.tenant_name_arr == ['GCIE PSD Regional US', 'Example Financial Corp Production Tenant', 'Example Financial Corp']
 	assert __standard.tenant_name == 'GCIE PSD Regional US'
 	assert __standard.tenant_number_arr == ['123456', '1906132', '2001211']
 	assert __standard.tenant_number == '123456'

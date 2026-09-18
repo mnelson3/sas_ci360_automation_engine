@@ -19,8 +19,8 @@ __time_stamp = datetime.now().strftime('%Y:%m:%d:%H:%M:%S')
 __secret_key = __standard.secret_key
 __tenant_id = __standard.tenant_id
 __prod_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6IjA1OTg2ODRhMDYwMDAxMGUyZWIyNDcxNCJ9.SPzyznE2MAdXOgXG7AIKr2ueWXJR5VcvTK5xlFf9cbQ'
-__qa_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6IjhhYTYxNmUzMzIwMDAxMGE1NjAwMTVmZCJ9.UMBKbVNyx2Z8jpAgpr6TfBvPWGpBKFwL8MMW9-E1O2k'
-__test_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'
+__qa_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMiJ9.4yCXGMeCm1aGTt66YLaYppUXnXpq2v6ZjnSSGC-V7s4'
+__test_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'
 __token = __test_token
 
 
@@ -34,7 +34,7 @@ def test_tables_get():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = 'https://{0}'.format(__standard.tables_path)
@@ -54,7 +54,7 @@ def test_tables_by_id_get():
 	assert table_id == __standard.identity_bridge_table_id
 
 	file_name = 'table_get_{}'.format(time_stamp)
-	json_file = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseTablesGet, file_name, '.JSON'))
+	json_file = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseTablesGet, file_name, '.JSON'))
 
 	print('json_file : {}'.format(json_file))
 	with open(json_file, 'r', encoding='utf-8') as outfile:
@@ -75,7 +75,7 @@ def test_tables_by_id_get():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = temporary_url
@@ -96,7 +96,7 @@ def test_import_request_jobs_get():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = 'https://{0}?{1}'.format(__standard.import_request_jobs_path, 'start=0&limit=999')
@@ -116,7 +116,7 @@ def test_import_request_jobs_get():
 # 	assert table_id == __standard.identity_bridge_table_id()
 #
 # 	file_name = 'import_request_jobs_get_{}'.format(time_stamp)
-# 	json_file = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, file_name, '.JSON'))
+# 	json_file = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, file_name, '.JSON'))
 # 	print('json_file = {}'.format(json_file))
 #
 # 	with open(json_file, 'r', encoding='utf-8') as outfile:
@@ -138,7 +138,7 @@ def test_import_request_jobs_get():
 # 							data = None
 # 							assert data is None
 # 							headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-# 							assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+# 							assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 # 							params = None
 # 							assert params is None
 # 							url = temporary_url
@@ -162,7 +162,7 @@ def test_import_request_jobs_get():
 # 	data = None
 # 	assert data is None
 # 	headers = {'Authorization': 'Bearer {0}'.format(token), 'Content-Type': 'application/json'}
-# 	assert headers == {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc', 'Content-Type': 'application/json'}
+# 	assert headers == {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo', 'Content-Type': 'application/json'}
 # 	params = None
 # 	assert params is None
 # 	url = 'https://{0}'.format(__standard.file_transfer_location_path())
@@ -170,13 +170,13 @@ def test_import_request_jobs_get():
 # 	result = __connection.conn(action=action, data=data, headers=headers, params=params, url=url)
 # 	assert result is not None
 #
-# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/First_Financial/SAS_CI360_Automation_Engine', Standard.gDirReport, 'test_post_import_request_job_path_1', '.JSON'))
+# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/Example_Financial/SAS_CI360_Automation_Engine', Standard.gDirReport, 'test_post_import_request_job_path_1', '.JSON'))
 # 	print('json_file = {0}'.format(json_file))
 # 	with open(json_file, 'w', encoding='utf-8') as outfile:
 # 		json.dump(result, outfile, ensure_ascii=False, indent=4)
 # 	__reporter.build_report(name='test_post_import_request_job_path_1', data=result)
 #
-# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/First_Financial/SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, 'test_put_file_location_path_2', '.JSON'))
+# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/Example_Financial/SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, 'test_put_file_location_path_2', '.JSON'))
 # 	print('json_file = {0}'.format(json_file))
 # 	with open(json_file, 'r', encoding='utf-8') as infile:
 # 		result = json.load(infile)
@@ -208,7 +208,7 @@ def test_import_request_jobs_get():
 # 	data["fileLocation"] = temporary_url
 # 	print('data = {0}'.format(data))
 # 	headers = {'Authorization': 'Bearer {0}'.format(token), 'Content-Type': 'application/json'}
-# 	assert headers == {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc', 'Content-Type': 'application/json'}
+# 	assert headers == {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo', 'Content-Type': 'application/json'}
 # 	params = None
 # 	assert params is None
 # 	url = 'https://{0}'.format(__standard.import_request_jobs_path())
@@ -216,7 +216,7 @@ def test_import_request_jobs_get():
 # 	result = __connection.conn(action=action, data=data, headers=headers, params=params, url=url)
 # 	assert result is not None
 #
-# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/First_Financial/SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, 'test_post_import_request_job_path', '.JSON'))
+# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/Example_Financial/SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, 'test_post_import_request_job_path', '.JSON'))
 # 	print('json_file = {0}'.format(json_file))
 # 	with open(json_file, 'w', encoding='utf-8') as outfile:
 # 		json.dump(result, outfile, ensure_ascii=False, indent=4)
@@ -232,7 +232,7 @@ def test_import_request_jobs_get():
 # 	data = None
 # 	assert data is None
 # 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(__token)}
-# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 # 	params = None
 # 	assert params is None
 # 	url = 'https://{0}?{1}'.format(__standard.import_request_jobs_path(), 'start=0&limit=999')
@@ -270,7 +270,7 @@ def test_import_request_jobs_get():
 # 	data["fileLocation"] = temporary_url
 # 	print('data = {0}'.format(data))
 # 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 # 	params = None
 # 	assert params is None
 # 	url = 'https://{0}'.format(__standard.import_request_jobs_path())
@@ -278,7 +278,7 @@ def test_import_request_jobs_get():
 # 	result = __connection.conn(action=action, data=data, headers=headers, params=params, url=url)
 # 	assert result is not None
 #
-# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/First_Financial/SAS_CI360_Automation_Engine', Standard.gDirReport, 'test_put_file_location_path_3', '.JSON'))
+# 	json_file = Path('{0}{1}{2}{3}'.format('D:/Clients/Example_Financial/SAS_CI360_Automation_Engine', Standard.gDirReport, 'test_put_file_location_path_3', '.JSON'))
 # 	print('json_file = {0}'.format(json_file))
 # 	with open(json_file, 'w', encoding='utf-8') as outfile:
 # 		json.dump(result, outfile, ensure_ascii=False, indent=4)
@@ -294,7 +294,7 @@ def test_import_request_jobs_get():
 # 	assert table_id == __standard.identity_bridge_table_id()
 #
 # 	file_name = 'import_request_jobs_get_{}'.format(time_stamp)
-# 	json_file = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, file_name, '.JSON'))
+# 	json_file = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, file_name, '.JSON'))
 # 	print('json_file = {}'.format(json_file))
 #
 # 	with open(json_file, 'r', encoding='utf-8') as outfile:
@@ -305,7 +305,7 @@ def test_import_request_jobs_get():
 # 				if item['dataDescriptorId'] == table_id:
 # 					__id = item['id']
 # 					file_name_ = '{}'.format(__id)
-# 					json_file_ = Path('{0}{1}{2}{3}'.format('D:\Clients\First_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, file_name_, '.JSON'))
+# 					json_file_ = Path('{0}{1}{2}{3}'.format('D:\Clients\Example_Financial\SAS_CI360_Automation_Engine', __standard.gDirDataResponseImportRequestJobsGet, file_name_, '.JSON'))
 # 					print('json_file_ = {}'.format(json_file_))
 # 					with open(json_file_, 'r', encoding='utf-8') as outfile_:
 # 						result_ = json.load(outfile_)
@@ -341,7 +341,7 @@ def test_import_request_jobs_get():
 # 	data = None
 # 	assert data is None
 # 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 # 	params = None
 # 	assert params is None
 # 	url = 'https://{0}?{1}'.format(__standard.import_request_jobs_path(), 'start=0&limit=999')
@@ -382,7 +382,7 @@ def test_import_request_jobs_get():
 # 				print('data = {0}'.format(data))
 # 				data = None
 # 				headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-# 				assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+# 				assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 # 				params = None
 # 				assert params is None
 # 				url = 'https://{0}'.format(__standard.import_request_jobs_path())
@@ -402,7 +402,7 @@ def test_file_transfer_location_post():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = 'https://{0}'.format(__standard.file_transfer_location_path)
@@ -427,7 +427,7 @@ def test_file_transfer_location_post():
 # 	data = json.loads(json_string)
 # 	data["applicationId"] = 'Identity Bridge Data'
 # 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 # 	params = None
 # 	assert params is None
 # 	url = 'https://{0}'.format(__standard.bulk_load_external_events_path())
@@ -448,7 +448,7 @@ def test_file_transfer_location_post():
 # 	data = None
 # 	assert data is None
 # 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+# 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 # 	params = None
 # 	assert params is None
 # 	url = 'https://{0}'.format(__standard.file_transfer_location_path())
@@ -469,18 +469,18 @@ def test_file_transfer_location_post():
 #
 # 	file_post_path = __standard.export_post_path()
 # 	print('file_post_path = {0}'.format(file_post_path))
-# 	assert file_post_path == 'D:/Clients/First_Financial/SAS_CI360_Automation_Engine/data/test'
+# 	assert file_post_path == 'D:/Clients/Example_Financial/SAS_CI360_Automation_Engine/data/test'
 # 	file_export_path = __standard.export_path()
 # 	file_export = '{0}_{1}{2}'.format(__standard.export_file()[:-4], time_stamp, '.CSV')
 # 	print('file_export = {0}'.format(file_export))
-# 	assert file_export == 'SAS1FBCHAIN_{}.CSV'.format(time_stamp)
+# 	assert file_export == 'SASCHAIN_{}.CSV'.format(time_stamp)
 # 	shutil.copy(Path('{0}/{1}'.format(file_post_path, __standard.export_file())), Path('{0}/{1}'.format(file_export_path, file_export)))
 #
 # 	action = 'PUT'
 # 	assert action == 'PUT'
 # 	data = '{0}/{1}'.format(file_export_path, file_export)
 # 	print('data = {0}'.format(data))
-# 	assert data == 'D:/Clients/First_Financial/SAS_CI360_Automation_Engine/data/export/SAS1FBCHAIN_{}.CSV'.format(time_stamp)
+# 	assert data == 'D:/Clients/Example_Financial/SAS_CI360_Automation_Engine/data/export/SASCHAIN_{}.CSV'.format(time_stamp)
 # 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 # 	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json'}
 # 	params = None

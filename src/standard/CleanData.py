@@ -41,7 +41,7 @@ class CleanData:
             self._report_date = value
         try:
             return self._report_date
-        except AttributeError or Exception as e:
+        except Exception as e:
             logger.exception('Exception occurred: ' + str(e))
             return None
 
@@ -90,7 +90,7 @@ class CleanData:
                                 try:
                                     if ord(row[i][c]) > 256:
                                         row[i] = str(row[i]).replace(row[i][c], '?')
-                                except IndexError or UnicodeError or UnicodeEncodeError or UnicodeDecodeError:
+                                except (IndexError, UnicodeError, UnicodeEncodeError, UnicodeDecodeError):
                                     row[i] = str(row[i]).replace(row[i][c], '?')
                         csv_writer.writerow(row)
         except Exception as e:

@@ -190,7 +190,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -198,7 +198,7 @@ class Standard:
 	def agent_name(self):
 		try:
 			return self._agent_name
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -206,7 +206,7 @@ class Standard:
 	def algorithm(self):
 		try:
 			return self._algorithm
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -214,7 +214,7 @@ class Standard:
 	def analytic_services_controller_path(self):
 		try:
 			return self._path_analytic_services_controller
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -222,7 +222,7 @@ class Standard:
 	def analytic_transfer_controller_path(self):
 		try:
 			return self._path_analytic_transfer_controller
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -230,7 +230,7 @@ class Standard:
 	def bulk_load_external_events_path(self):
 		try:
 			return self._path_bulk_load_external_events
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -238,7 +238,7 @@ class Standard:
 	def customer_jobs_path(self):
 		try:
 			return self._path_customer_jobs
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -254,7 +254,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -262,7 +262,7 @@ class Standard:
 	def dataset_name(self):
 		try:
 			return self._dataset_name
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -270,7 +270,7 @@ class Standard:
 	def delimiter(self):
 		try:
 			return self._delimiter
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -278,7 +278,7 @@ class Standard:
 	def discover_service_path(self):
 		try:
 			return self._path_discover_service
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -288,7 +288,7 @@ class Standard:
 			if type(self._duration) == str:
 				return int(self._duration)
 			return self._duration
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -304,7 +304,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -312,7 +312,7 @@ class Standard:
 	def email_msg_status_from(self):
 		try:
 			return self._email_msg_status_from
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -328,7 +328,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -336,7 +336,7 @@ class Standard:
 	def email_msg_status_to(self):
 		try:
 			return self._email_msg_status_to
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -352,7 +352,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -360,7 +360,7 @@ class Standard:
 	def email_msg_support_from(self):
 		try:
 			return self._email_msg_support_from
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -376,7 +376,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -384,7 +384,7 @@ class Standard:
 	def email_msg_support_to(self):
 		try:
 			return self._email_msg_support_to
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -400,7 +400,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -408,7 +408,7 @@ class Standard:
 	def email_msg_support_cc(self):
 		try:
 			return self._email_msg_support_cc
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -424,7 +424,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -432,7 +432,7 @@ class Standard:
 	def email_server(self):
 		try:
 			return self._email_server
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -448,7 +448,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -456,7 +456,7 @@ class Standard:
 	def email_server_login(self):
 		try:
 			return self._email_server_login
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -472,7 +472,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -480,7 +480,7 @@ class Standard:
 	def email_server_password(self):
 		try:
 			return self._email_server_password
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -496,7 +496,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -504,7 +504,7 @@ class Standard:
 	def email_server_port(self):
 		try:
 			return self._email_server_port
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -512,7 +512,7 @@ class Standard:
 	def encoding(self):
 		try:
 			return self._encoding
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -522,7 +522,7 @@ class Standard:
 			if (type(self._end_date) == str) and (self._end_date == 'None'):
 				return None
 			return self._end_date
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -532,7 +532,7 @@ class Standard:
 			if (type(self._end_date_time) == str) and (self._end_date_time == 'None'):
 				return None
 			return self._end_date_time
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -542,7 +542,7 @@ class Standard:
 			if (type(self._end_time) == str) and (self._end_time == 'None'):
 				return None
 			return self._end_time
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -550,7 +550,7 @@ class Standard:
 	def event_jobs_path(self):
 		try:
 			return self._path_event_jobs
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -566,7 +566,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -574,7 +574,7 @@ class Standard:
 	def export_file(self):
 		try:
 			return self._file_export
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -590,7 +590,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -598,7 +598,7 @@ class Standard:
 	def export_change_file(self):
 		try:
 			return self._file_change_export
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -614,7 +614,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -622,7 +622,7 @@ class Standard:
 	def export_path(self):
 		try:
 			return self._path_export
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -638,7 +638,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -646,7 +646,7 @@ class Standard:
 	def export_post_path(self):
 		try:
 			return self._path_export_post
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -654,7 +654,7 @@ class Standard:
 	def export_request_jobs_path(self):
 		try:
 			return self._path_export_request_jobs
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -662,7 +662,7 @@ class Standard:
 	def export_tables_path(self):
 		try:
 			return self._path_export_tables
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -678,7 +678,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -686,7 +686,7 @@ class Standard:
 	def external_gateway_path(self):
 		try:
 			return self._path_external_gateway
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -694,7 +694,7 @@ class Standard:
 	def file_transfer_location_path(self):
 		try:
 			return self._path_file_transfer_location
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -702,7 +702,7 @@ class Standard:
 	def flag_append(self):
 		try:
 			return bool(self._flag_append)
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -710,7 +710,7 @@ class Standard:
 	def flag_clean_files(self):
 		try:
 			return bool(self._flag_clean_files)
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -718,7 +718,7 @@ class Standard:
 	def flag_csv(self):
 		try:
 			return bool(self._flag_csv)
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -726,7 +726,7 @@ class Standard:
 	def flag_csv_header(self):
 		try:
 			return bool(self._flag_csv_header)
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -734,7 +734,7 @@ class Standard:
 	def flag_test_export(self):
 		try:
 			return bool(self._flag_test_export)
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -742,7 +742,7 @@ class Standard:
 	def flag_test_report(self):
 		try:
 			return bool(self._flag_test_report)
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -758,7 +758,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -766,7 +766,7 @@ class Standard:
 	def identity_bridge_table_id(self):
 		try:
 			return self._identity_bridge_table_id
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -774,7 +774,7 @@ class Standard:
 	def identity_records_path(self):
 		try:
 			return self._path_identity_records
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -782,7 +782,7 @@ class Standard:
 	def identity_value(self):
 		try:
 			return self._identity_value
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -790,7 +790,7 @@ class Standard:
 	def import_path(self):
 		try:
 			return self._path_import
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -798,7 +798,7 @@ class Standard:
 	def import_request_jobs_path(self):
 		try:
 			return self._path_import_request_jobs
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -808,7 +808,7 @@ class Standard:
 			if type(self._interval_hours) == str:
 				return int(self._interval_hours)
 			return self._interval_hours
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -816,7 +816,7 @@ class Standard:
 	def interval_minutes(self):
 		try:
 			return self._interval_minutes
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -824,7 +824,7 @@ class Standard:
 	def marketing_data_path(self):
 		try:
 			return self._path_marketing_data
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -832,7 +832,7 @@ class Standard:
 	def marketing_gateway_path(self):
 		try:
 			return self._path_marketing_gateway
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -848,7 +848,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -864,7 +864,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -872,7 +872,7 @@ class Standard:
 	def reports_path(self):
 		try:
 			return self._path_reports
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -881,7 +881,7 @@ class Standard:
 		try:
 			result = self._schedule_job_arr.split(',')
 			return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -890,7 +890,7 @@ class Standard:
 		try:
 			result = self._schedule_job_chain.split(',')
 			return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -899,7 +899,7 @@ class Standard:
 		try:
 			result = self._schedule_job_change.split(',')
 			return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -907,7 +907,7 @@ class Standard:
 	def schema_version(self):
 		try:
 			return self._schema_version
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -923,7 +923,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -931,7 +931,7 @@ class Standard:
 	def secret_key(self):
 		try:
 			return self._secret_key
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -941,7 +941,7 @@ class Standard:
 			if type(self._sleep_seconds) == str:
 				return int(self._sleep_seconds)
 			return self._sleep_seconds
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -951,7 +951,7 @@ class Standard:
 			if (type(self._start_date) == str) and (self._start_date == 'None'):
 				return None
 			return self._start_date
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -961,7 +961,7 @@ class Standard:
 			if (type(self._start_date_time) == str) and (self._start_date_time == 'None'):
 				return None
 			return self._start_date_time
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -971,7 +971,7 @@ class Standard:
 			if (type(self._start_time) == str) and (self._start_time == 'None'):
 				return None
 			return self._start_time
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -979,7 +979,7 @@ class Standard:
 	def tables_path(self):
 		try:
 			return self._path_tables
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -995,7 +995,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1003,7 +1003,7 @@ class Standard:
 	def tenant_id(self):
 		try:
 			return self._tenant_id
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1019,7 +1019,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1027,7 +1027,7 @@ class Standard:
 	def tenant_environment(self):
 		try:
 			return self._tenant_environment
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1043,7 +1043,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1051,7 +1051,7 @@ class Standard:
 	def tenant_name(self):
 		try:
 			return self._tenant_name
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1067,7 +1067,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1075,7 +1075,7 @@ class Standard:
 	def tenant_number(self):
 		try:
 			return self._tenant_number
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1091,7 +1091,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1099,7 +1099,7 @@ class Standard:
 	def tenant_product(self):
 		try:
 			return self._tenant_product
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1115,7 +1115,7 @@ class Standard:
 				return result[2]
 			else:
 				return result
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 
@@ -1123,7 +1123,7 @@ class Standard:
 	def tenant_url(self):
 		try:
 			return self._tenant_url
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: {}'.format(str(e)))
 			return None
 

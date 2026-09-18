@@ -27,7 +27,7 @@ class Log:
 			self._log_file = value
 		try:
 			return self._log_file
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logging.exception('Exception occurred: {}'.format(str(e)))
 			return None
 

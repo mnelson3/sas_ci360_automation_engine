@@ -8,8 +8,8 @@ from security import Security
 from standard import Standard
 
 __prod_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6IjA1OTg2ODRhMDYwMDAxMGUyZWIyNDcxNCJ9.SPzyznE2MAdXOgXG7AIKr2ueWXJR5VcvTK5xlFf9cbQ'
-__test_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6IjhhYTYxNmUzMzIwMDAxMGE1NjAwMTVmZCJ9.UMBKbVNyx2Z8jpAgpr6TfBvPWGpBKFwL8MMW9-E1O2k'
-__dev_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'
+__test_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMiJ9.4yCXGMeCm1aGTt66YLaYppUXnXpq2v6ZjnSSGC-V7s4'
+__dev_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'
 
 
 def test_delete():
@@ -38,7 +38,7 @@ def test_get_mode():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/vnd.sas.api+json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/vnd.sas.api+json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/vnd.sas.api+json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = 'https://{0}{1}'.format(standard.external_gateway_path, standard.analytic_services_controller_path)
@@ -66,7 +66,7 @@ def test_get():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/vnd.sas.api+json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/vnd.sas.api+json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/vnd.sas.api+json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = 'https://{0}{1}'.format(standard.external_gateway_path, standard.analytic_services_controller_path)
@@ -101,7 +101,7 @@ def test_post_mode():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = 'https://{0}{1}'.format(standard.external_gateway_path, standard.file_transfer_location_path)
@@ -129,7 +129,7 @@ def test_post():
 	data = None
 	assert data is None
 	headers = {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer {0}'.format(token)}
-	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjbGllbnRJRCI6ImRkMGM3M2M5ZmUwMDAxM2M2MTc3NzJmOCJ9.10VFWYNCBjiu9EGGuRt9FojdrutkdYl-vTTgamSPfKc'}
+	assert headers == {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJRCI6ImExYTFhMWExYTFhMWExYTFhMWExYTEwMSJ9.q3MYDStIGHc7AGVHqyAXJuMojXHjO7uom_EipYB9vgo'}
 	params = None
 	assert params is None
 	url = 'https://{0}{1}'.format(standard.external_gateway_path, standard.file_transfer_location_path)

@@ -49,7 +49,7 @@ class DownloadEntity:
 			self._entity = value
 		try:
 			return self._entity
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: ' + str(e))
 			return None
 
@@ -58,7 +58,7 @@ class DownloadEntity:
 			self._prefix = value
 		try:
 			return self._prefix
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: ' + str(e))
 			return None
 
@@ -67,7 +67,7 @@ class DownloadEntity:
 			self._schema_url = value
 		try:
 			return self._schema_url
-		except AttributeError or Exception as e:
+		except Exception as e:
 			logger.exception('Exception occurred: ' + str(e))
 			return None
 

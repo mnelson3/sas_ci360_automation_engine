@@ -7,12 +7,12 @@ from listener import Listener
 
 
 def test_listener_run():
-	assert path.exists('D:\Clients\First_Financial\SAS360\CHAINING\DEVELOPMENT\SAS1FBCHAIN.CSV')
-	assert path.exists('D:\Clients\First_Financial\SAS360\CHAINING\DEVELOPMENT\SAS1FBCHANGE.CSV')
+	assert path.exists('D:\Clients\Example_Financial\SAS360\CHAINING\DEVELOPMENT\SASCHAIN.CSV')
+	assert path.exists('D:\Clients\Example_Financial\SAS360\CHAINING\DEVELOPMENT\SASCHANGE.CSV')
 
 	listener = Listener.Listener()
 	listener.run()
 	time.sleep(15)
 
-	assert not path.exists('D:\Clients\First_Financial\SAS360\CHAINING\DEVELOPMENT\SAS1FBCHAIN.CSV')
-	assert not path.exists('D:\Clients\First_Financial\SAS360\CHAINING\DEVELOPMENT\SAS1FBCHANGE.CSV')
+	assert not path.exists('D:\Clients\Example_Financial\SAS360\CHAINING\DEVELOPMENT\SASCHAIN.CSV')
+	assert not path.exists('D:\Clients\Example_Financial\SAS360\CHAINING\DEVELOPMENT\SASCHANGE.CSV')
