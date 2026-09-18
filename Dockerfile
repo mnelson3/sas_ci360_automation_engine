@@ -1,5 +1,5 @@
 FROM python:3.11-slim
-LABEL maintainer="mark.a.nelson@outlook.com"
+LABEL maintainer="support@nelsongrey.com"
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
