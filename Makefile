@@ -1,17 +1,19 @@
-# make venv, make unix-venv, make test-unix-venv, etc.
+# make venv, make win-venv, make test-venv, make test, make run
 
 venv:
-	virtualenv venv
-	/venv/bin/python3 -m pip3 install -r ./requirements.txt
-
-unix-venv: venv
-	/venv/bin/python3 -m pip3 install -r ./requirements_unix.txt
-
-test-unix-venv: venv
-	/venv/bin/python3 -m pip3 install -r ./requirements_unix_test.txt
+	python3 -m venv venv
+	venv/bin/python3 -m pip install --upgrade pip
+	venv/bin/python3 -m pip install -r requirements.txt
 
 win-venv: venv
-	/venv/bin/python3 -m pip3 install -r ./requirements_win.txt
+	venv/bin/python3 -m pip install -r requirements_win.txt
 
-test-win-venv: venv
-	/venv/bin/python3 -m pip3 install -r ./requirements_win_test.txt
+test-venv: venv
+	venv/bin/python3 -m pip install -r requirements-test.txt
+
+test: test-venv
+	venv/bin/python3 -m pytest tests/
+
+run: venv
+	mkdir -p logs
+	PYTHONPATH=src venv/bin/python3 -m main.Main

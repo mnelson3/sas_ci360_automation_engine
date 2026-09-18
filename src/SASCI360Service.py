@@ -1,5 +1,8 @@
 #! /venv/bin/python
 # -*- mode: python ; coding: utf-8 -*-
+#
+# Windows-only service wrapper (requires pywin32, see requirements_win.txt).
+# On Linux, run the engine under systemd instead -- see sas_ci360_automation_engine.service.
 
 import logging
 import os

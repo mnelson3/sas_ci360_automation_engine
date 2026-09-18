@@ -7,9 +7,11 @@ from scheduler import Scheduler
 def test_run_mode():
 	mode = 'development'
 	scheduler = Scheduler.Scheduler(mode=mode)
-	scheduler.run()
+	scheduler.chain_run()
+	scheduler.change_run()
 
 
 def test_run():
 	scheduler = Scheduler.Scheduler()
-	scheduler.run()
+	scheduler.chain_run()
+	scheduler.change_run()

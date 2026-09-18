@@ -1,10 +1,23 @@
-/.pytest_cache/
-/venv/
-file_transfer_location_post_20200519120935.JSON
+.idea
+.pytest_cache
+.vscode
+/venv
+__pycache__/
+*.pyc
+.DS_Store
+
+# Build artifacts
+/build/
+/dist/
+*.egg-info/
+
+# Local runtime output / secrets
+/logs/*
+!/logs/.gitkeep
+/config/*
+!/config/*.example
+
+# Sample data dropped by real runs
+file_transfer_location_post_*.JSON
 identity_bridge_data.csv
-import_request_jobs_get_20200519120935.CSV
-SAS_CI360_Automation_Engine.code-workspace
-SAS_CI360_Automation_Engine.py
-SAS_CI360_Automation_Engine.pyperf
-SAS_CI360_Automation_Engine.pyproj
-SAS_CI360_Automation_Engine.sln
+import_request_jobs_get_*.CSV

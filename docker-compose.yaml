@@ -1,18 +1,8 @@
-version: '0.1.0'
+version: "3.8"
 services:
-    src:
-        build: ./src/
-        ports:
-          - "8080:8080"
-          - "443:443"
-    tests:
-        build: ./tests/
-        depends_on:
-          - src
-        ports:
-          - "8080:8080"
-          - "443:443"
-        volumes:
-            - ./
-        stdin_open: true
-        tty: true
+  engine:
+    build: .
+    volumes:
+      - ./config:/opt/sas_ci360_automation_engine/config
+      - ./data:/opt/sas_ci360_automation_engine/data
+      - ./logs:/opt/sas_ci360_automation_engine/logs

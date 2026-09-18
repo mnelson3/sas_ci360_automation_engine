@@ -1,9 +1,1 @@
-pypiwin32==223
-pywin32==227
-pywinpty==0.5.7
-servicemanager==1.8.1
-win32
-win32event
-win32service
-win32serviceutil
-winregistry==0.8.3
+pywin32~=306

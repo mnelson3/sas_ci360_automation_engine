@@ -4,14 +4,14 @@
 from setuptools import setup
 
 setup(
-    name='automation',
+    name='sas_ci360_automation_engine',
     version='1.0.0',
     packages=['communication', 'connection', 'custom', 'log', 'main', 'reporter', 'scheduler', 'security', 'standard'],
     package_dir={'': 'src'},
-    namespace_packages=['SAS_CI360_'],
-    url='www.sas.com',
-    license='SAS Institute Inc.',
-    author='manels',
-    author_email='Mark.Nelson@sas.com',
-    description=''
+    url='https://github.com/mnelson3/sas_ci360_automation_engine',
+    license='Apache-2.0',
+    author='Mark Nelson',
+    author_email='mark.a.nelson@outlook.com',
+    description='Automation engine that downloads Discover data from the SAS Customer Intelligence 360 '
+                 'datahub, applies business rules to it, and uploads the resulting CSV file back to CI360.'
 )
