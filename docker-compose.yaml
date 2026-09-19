@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  engine:
+    build: .
+    volumes:
+      - ./config:/opt/sas_ci360_automation_engine/config
+      - ./data:/opt/sas_ci360_automation_engine/data
+      - ./logs:/opt/sas_ci360_automation_engine/logs

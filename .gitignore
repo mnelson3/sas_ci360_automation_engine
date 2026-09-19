@@ -1,0 +1,25 @@
+.idea
+.pytest_cache
+.vscode
+/venv
+__pycache__/
+*.pyc
+.DS_Store
+
+# Build artifacts
+/build/
+/dist/
+*.egg-info/
+
+# Local runtime output / secrets
+/logs/*
+!/logs/.gitkeep
+/config/*
+!/config/*.example
+
+# Sample data dropped by real runs
+file_transfer_location_post_*.JSON
+identity_bridge_data.csv
+import_request_jobs_get_*.CSV
+*.log
+/logs/

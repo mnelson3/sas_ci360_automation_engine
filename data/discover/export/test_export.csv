@@ -1,0 +1,4 @@
+CART_Email_Event,visitor_id,1a111111-1111-1111-a1a1-1aaa1111a111,taskName,CART_Donations_Triggered_Email,emailAddress,example1@example.com
+CART_Email_Event,visitor_id,2b222222-2222-2222-b2b2-2bbb2222b222,taskName,CART_Donations_Triggered_Email,emailAddress,example2@example.com
+CART_Email_Event,visitor_id,3c333333-3333-3333-c3c3-3ccc3333c333,taskName,CART_Donations_Triggered_Email,emailAddress,example3@example.com
+CART_Email_Event,visitor_id,4d444444-4444-4444-d4d4-4ddd4444d444,taskName,CART_Donations_Triggered_Email,emailAddress,example4@example.com
