@@ -2,6 +2,8 @@
 
 ## SAS CI360 Automation Engine
 
+> **Status: legacy reference.** This was the original orchestration engine and predates [`sas-ci360-solutions`](https://github.com/mnelson3/sas-ci360-solutions), now the canonical identity-bridge and reporting automation, built on the current `sol-*` client libraries. Kept here as a reference for the config.ini-driven design it introduced; new orchestration work should build on `sas-ci360-solutions`.
+
 ### Overview
 
 The Automation Engine downloads Discover data from the SAS Customer Intelligence 360 (CI360) datahub, filters
