@@ -1,21 +1,30 @@
 # Security Policy
 
-## Overview
-
-Automation engine that builds and uploads CSV data files back to the CI360 datahub.
-
 ## Supported Versions
 
-Only the latest commit on the default branch is supported with security fixes. There are no maintained release branches at this time.
+This repository holds a retained historical reference implementation of the SAS Customer Intelligence 360 Automation Engine, which downloaded Discover data from the CI360 datahub, applied business rules to it, and uploaded the resulting CSV file back to CI360 as an Identity Bridge import. It predates [`sas-ci360-solutions`](https://github.com/mnelson3/sas-ci360-solutions), the current identity-bridge and reporting automation, and is no longer actively developed. Only the code currently deployed on each environment branch is supported — there is no long-term support for older commits.
+
+| Branch | Environment | Status |
+|---|---|---|
+| `main` | Production | Supported |
+| `staging` | Staging | Supported |
+| `develop` | Development | Supported |
 
 ## Reporting a Vulnerability
 
-Please do not report security vulnerabilities by opening a public issue on GitLab.
+This repository doesn't have a public issue tracker, so please don't report security concerns that way. Use one of:
 
-Instead, email **support@nelsongrey.com** with:
+- GitHub's [private vulnerability reporting](https://github.com/mnelson3/sas_ci360_automation_engine-archived/security/advisories/new) (enabled on this repo), or
+- Email **support@nelsongrey.com**
+
+Either way, include:
 
 - A description of the vulnerability and its potential impact
 - Steps to reproduce, or a proof of concept if available
-- Any relevant logs or affected code paths
+- Any relevant logs, request/response samples, or affected endpoints
 
-You should get an acknowledgement within a few business days, and we'll keep you updated as the issue is investigated and resolved.
+You should get an acknowledgement within a few business days.
+
+## Automated Dependency Scanning
+
+Dependabot alerts and security updates, native GitHub secret scanning (with push protection), and code scanning (CodeQL) are all enabled on this repository. Avoid committing credentials or secrets regardless — credentials are supplied by the consuming application via environment variables / a secrets manager, never committed to source.
